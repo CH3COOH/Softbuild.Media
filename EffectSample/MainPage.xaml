@@ -1,0 +1,29 @@
+﻿<Page
+    x:Class="EffectSample.MainPage"
+    IsTabStop="false"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EffectSample"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="321" Height="768">
+            <StackPanel HorizontalAlignment="Stretch">
+                <Button x:Name="btnNegative" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnNegative_Click" Content="Negative" />
+                <Button x:Name="btnGrayscale" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnGrayscale_Click" Content="Grayscale" />
+                <Button x:Name="btnSepia" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnSepia_Click" Content="Sepia" />
+                <Button x:Name="btnContrast" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Contrast" Click="btnContrast_Click" />
+                <Button x:Name="btnSaturation" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnSaturation_Click" Content="Saturation" />
+                <Button x:Name="btnBakumatsu" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Bakumatsu" Click="btnBakumatsu_Click" />
+                <Button x:Name="btnVignetting" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Vignetting" Click="btnVignetting_Click" />
+                <Button x:Name="btnToycamera" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Toycamera" Click="btnToycamera_Click" />
+            </StackPanel>
+        </Grid>
+        <Grid Margin="321,0,0,0" Background="White"/>
+        <Image x:Name="imageSrc" HorizontalAlignment="Left" Height="559" Margin="342,81,0,0" VerticalAlignment="Top" Width="457" RenderTransformOrigin="0.5,0.5" Source="Assets/lena.PNG"/>
+        <Image x:Name="imageDst" HorizontalAlignment="Left" Height="559" Margin="822,81,0,0" VerticalAlignment="Top" Width="457" RenderTransformOrigin="0.5,0.5"/>
+
+    </Grid>
+</Page>
