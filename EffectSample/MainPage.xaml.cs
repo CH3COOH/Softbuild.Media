@@ -32,8 +32,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace EffectSample
 {
     /// <summary>
@@ -65,7 +63,10 @@ namespace EffectSample
 
         private async void btnNegative_Click(object sender, RoutedEventArgs e)
         {
-            var bitmap = await GetTestImageAsync();
+            // テスト用の画像を非同期で取得する
+            WriteableBitmap bitmap = await GetTestImageAsync();
+
+            // ネガポジ反転してImageコントロールのSourceプロパティに設定する
             imageDst.Source = bitmap.EffectNegative();
         }
 

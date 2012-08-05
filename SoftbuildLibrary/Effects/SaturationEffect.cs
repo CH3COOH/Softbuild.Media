@@ -27,19 +27,32 @@ using System;
 
 namespace Softbuild.Media.Effects
 {
+    /// <summary>
+    /// 彩度調整処理をおこなうクラス
+    /// </summary>
     public class SaturationEffect : IEffect
     {
+        /// <summary>
+        /// 調整する彩度の倍率
+        /// </summary>
         private double Saturation { get; set; }
 
         /// <summary>
-        /// 
+        /// BakumatsuEffect クラスの新しいインスタンスを初期化します。
         /// </summary>
-        /// <param name="saturation">濃さを表現する(0.0～1.0 標準:0.5)</param>
+        /// <param name="saturation">彩度を表現する(0.0～1.0 標準:0.5)</param>
         public SaturationEffect(double saturation)
         {
             Saturation = saturation * 2;
         }
 
+        /// <summary>
+        /// 彩度調整処理をおこなう
+        /// </summary>
+        /// <param name="width">ビットマップの幅</param>
+        /// <param name="height">ビットマップの高さ</param>
+        /// <param name="source">処理前のピクセルデータ</param>
+        /// <returns>処理後のピクセルデータ</returns>
         public byte[] Effect(int width, int height, byte[] source)
         {
             int pixelCount = width * height;
@@ -49,6 +62,7 @@ namespace Softbuild.Media.Effects
             {
                 var index = i * 4;
 
+                // 処理前のピクセルの各ARGB要素を取得する
                 double b = source[index + 0];
                 double g = source[index + 1];
                 double r = source[index + 2];
@@ -57,10 +71,12 @@ namespace Softbuild.Media.Effects
                 // 単純平均法で輝度を求める
                 double y = (b + g + r) / 3;
 
+                // 輝度に対して指定の比率を掛けてセピア調に変換する
                 b = y + Saturation * (b - y);
                 g = y + Saturation * (g - y);
                 r = y + Saturation * (r - y);
 
+                // 処理後のバッファへピクセル情報を保存する
                 dest[index + 0] = (byte)Math.Min(255, Math.Max(0, b));
                 dest[index + 1] = (byte)Math.Min(255, Math.Max(0, g));
                 dest[index + 2] = (byte)Math.Min(255, Math.Max(0, r));

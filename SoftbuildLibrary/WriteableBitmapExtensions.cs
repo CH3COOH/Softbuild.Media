@@ -256,8 +256,9 @@ namespace Softbuild.Media
             // 元画像とサイズと合わせる
             var resizedBmp = maskBitamp.Resize(bmp.PixelWidth, bmp.PixelHeight);
 
-            var srcPixels = bmp.PixelBuffer.ToArray();
             byte[] dstPixels;
+
+            var srcPixels = bmp.PixelBuffer.ToArray();
             dstPixels = new ContrastEffect(0.8).Effect(bmp.PixelWidth, bmp.PixelHeight, srcPixels);
             dstPixels = new SaturationEffect(0.8).Effect(bmp.PixelWidth, bmp.PixelHeight, dstPixels);
             dstPixels = new VignettingEffect(resizedBmp, 0.7).Effect(bmp.PixelWidth, bmp.PixelHeight, dstPixels);

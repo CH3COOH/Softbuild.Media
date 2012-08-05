@@ -32,20 +32,32 @@ namespace Softbuild.Media.Effects
     /// </summary>
     public class NegativeEffect : IEffect
     {
+        /// <summary>
+        /// ネガティブ処理をおこなう
+        /// </summary>
+        /// <param name="width">ビットマップの幅</param>
+        /// <param name="height">ビットマップの高さ</param>
+        /// <param name="source">処理前のピクセルデータ</param>
+        /// <returns>処理後のピクセルデータ</returns>
         public byte[] Effect(int width, int height, byte[] source)
         {
+            // ピクセルデータの数を計算する
             int pixelCount = width * height;
+
+            // 処理後のピクセルデータを格納するためのバッファを生成する
             var dest = new byte[source.Length];
 
             for (int i = 0; i < pixelCount; i++)
             {
                 var index = i * 4;
 
+                // 処理前のピクセルの各ARGB要素を取得し反転する
                 var b = 255 - source[index + 0];
                 var g = 255 - source[index + 1];
                 var r = 255 - source[index + 2];
                 var a = source[index + 3];
 
+                // 処理後のバッファへピクセル情報を保存する
                 dest[index + 0] = (byte)Math.Min(255, Math.Max(0, b));
                 dest[index + 1] = (byte)Math.Min(255, Math.Max(0, g));
                 dest[index + 2] = (byte)Math.Min(255, Math.Max(0, r));
