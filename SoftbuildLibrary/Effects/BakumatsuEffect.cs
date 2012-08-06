@@ -37,6 +37,9 @@ namespace Softbuild.Media.Effects
     /// </remarks>
     public class BakumatsuEffect : IEffect
     {
+        /// <summary>
+        /// マスク画像
+        /// </summary>
         private WriteableBitmap MaskBitamp { get; set; }
 
         /// <summary>
