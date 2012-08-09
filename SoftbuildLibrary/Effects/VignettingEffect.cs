@@ -56,7 +56,7 @@ namespace Softbuild.Media.Effects
         }
 
         /// <summary>
-        /// ネガティブ処理をおこなう
+        /// 口径食処理をおこなう
         /// </summary>
         /// <param name="width">ビットマップの幅</param>
         /// <param name="height">ビットマップの高さ</param>

@@ -111,5 +111,11 @@ namespace EffectSample
             var bitmap = await GetTestImageAsync();
             imageDst.Source = await bitmap.EffectToycameraAsync();
         }
+
+        private async void btnPosterize_Click(object sender, RoutedEventArgs e)
+        {
+            var bitmap = await GetTestImageAsync();
+            imageDst.Source = bitmap.EffectPosterize(255);
+        }
     }
 }

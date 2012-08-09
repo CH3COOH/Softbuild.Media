@@ -220,7 +220,7 @@ namespace Softbuild.Media
         }
 
         /// <summary>
-        /// 低周辺光量風処理をしたWriteableBitampオブジェクトを返す
+        /// 口径食風の処理をしたWriteableBitampオブジェクトを返す
         /// </summary>
         /// <param name="bitmap">元になるWriteableBitampオブジェクト</param>
         /// <returns>WriteableBitampオブジェクト</returns>
@@ -233,8 +233,13 @@ namespace Softbuild.Media
             // 元画像とサイズと合わせる
             var resizedBmp = maskBitamp.Resize(bmp.PixelWidth, bmp.PixelHeight);
 
-            // 幕末画像を作成する
+            // 口径食による周辺光量の低下風の処理をしたビットマップを作成する
             return Effect(bmp, new VignettingEffect(resizedBmp, vignetting));
+        }
+
+        public static WriteableBitmap EffectPosterize(this WriteableBitmap bmp, byte level)
+        {
+            return Effect(bmp, new PosterizeEffect(level));
         }
 
         public static WriteableBitmap EffectSaturation(this WriteableBitmap bmp, double saturation)

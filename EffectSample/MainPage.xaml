@@ -10,16 +10,19 @@
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="321" Height="768">
-            <StackPanel HorizontalAlignment="Stretch">
-                <Button x:Name="btnNegative" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnNegative_Click" Content="Negative" />
-                <Button x:Name="btnGrayscale" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnGrayscale_Click" Content="Grayscale" />
-                <Button x:Name="btnSepia" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnSepia_Click" Content="Sepia" />
-                <Button x:Name="btnContrast" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Contrast" Click="btnContrast_Click" />
-                <Button x:Name="btnSaturation" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnSaturation_Click" Content="Saturation" />
-                <Button x:Name="btnBakumatsu" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Bakumatsu" Click="btnBakumatsu_Click" />
-                <Button x:Name="btnVignetting" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Vignetting" Click="btnVignetting_Click" />
-                <Button x:Name="btnToycamera" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Toycamera" Click="btnToycamera_Click" />
-            </StackPanel>
+            <ScrollViewer>
+                <StackPanel HorizontalAlignment="Stretch">
+                    <Button x:Name="btnNegative" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnNegative_Click" Content="Negative" />
+                    <Button x:Name="btnGrayscale" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnGrayscale_Click" Content="Grayscale" />
+                    <Button x:Name="btnSepia" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnSepia_Click" Content="Sepia" />
+                    <Button x:Name="btnContrast" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Contrast" Click="btnContrast_Click" />
+                    <Button x:Name="btnSaturation" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnSaturation_Click" Content="Saturation" />
+                    <Button x:Name="btnBakumatsu" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Bakumatsu" Click="btnBakumatsu_Click" />
+                    <Button x:Name="btnVignetting" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Vignetting" Click="btnVignetting_Click" />
+                    <Button x:Name="btnToycamera" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Toycamera" Click="btnToycamera_Click" />
+                    <Button x:Name="btnPosterize" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Posterize" Click="btnPosterize_Click" />
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
         <Grid Margin="321,0,0,0" Background="White"/>
         <Image x:Name="imageSrc" HorizontalAlignment="Left" Height="559" Margin="342,81,0,0" VerticalAlignment="Top" Width="457" RenderTransformOrigin="0.5,0.5" Source="Assets/lena.PNG"/>
