@@ -6,7 +6,7 @@ SoftbuildLibrary is WriteableBitmap Effector for Metro Style apps.
 Using SoftbuildLibrary on Metro Style Apps
 ----------------------------------------
 
- *  あとで書く
+ *  This source repository includes WriteableBitmap effector so that you can get started easily! More documents you can see on [this article(English)](http://d.hatena.ne.jp/ch3cooh393/20120810/1344588939) or [Japanese article](http://d.hatena.ne.jp/ch3cooh393/20120810/1344587748).
 
 Change Log
 ----------------------------------------
