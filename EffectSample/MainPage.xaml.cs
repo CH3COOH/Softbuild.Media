@@ -56,8 +56,14 @@ namespace EffectSample
         private async Task<WriteableBitmap> GetTestImageAsync()
         {
             // クラスライブラリ内の画像をリソースを読み出す
-            var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/lena.PNG"));
+            var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/lenna.PNG"));
             // StorageFileからWriteableBitampを生成する
+            return await WriteableBitmapExtensions.FromStreamAsync(await imageFile.OpenReadAsync());
+        }
+
+        private async Task<WriteableBitmap> GetTestMonochromeImageAsync()
+        {
+            var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/lenna_monochrome.jpg"));
             return await WriteableBitmapExtensions.FromStreamAsync(await imageFile.OpenReadAsync());
         }
 
@@ -117,5 +123,12 @@ namespace EffectSample
             var bitmap = await GetTestImageAsync();
             imageDst.Source = bitmap.EffectPosterize(255);
         }
+
+        private async void btnAutoColoring_Click(object sender, RoutedEventArgs e)
+        {
+            var bitmap = await GetTestMonochromeImageAsync();
+            imageDst.Source = await bitmap.EffectAutoColoringAsync();
+        }
+        
     }
 }

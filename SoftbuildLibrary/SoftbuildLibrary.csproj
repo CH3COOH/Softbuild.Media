@@ -100,12 +100,15 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include="Files\default_hosei.cur" />
     <Content Include="Images\bakumatsu.jpg" />
     <Content Include="Images\vignetting_gradation.png" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Effects\AutoColoringEffect.cs" />
     <Compile Include="Effects\BakumatsuEffect.cs" />
     <Compile Include="Effects\ConstrastEffect.cs" />
+    <Compile Include="Effects\GiCoCu\Curve.cs" />
     <Compile Include="Effects\GrayscaleEffect.cs" />
     <Compile Include="Effects\IEffect.cs" />
     <Compile Include="Effects\NegativeEffect.cs" />

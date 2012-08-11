@@ -122,7 +122,8 @@
     <None Include="EffectSample_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\lena.PNG" />
+    <Content Include="Assets\lenna.PNG" />
+    <Content Include="Assets\lenna_monochrome.jpg" />
     <Content Include="Assets\Logo.png" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />

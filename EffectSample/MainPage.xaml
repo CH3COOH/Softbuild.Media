@@ -21,11 +21,12 @@
                     <Button x:Name="btnVignetting" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Vignetting" Click="btnVignetting_Click" />
                     <Button x:Name="btnToycamera" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Toycamera" Click="btnToycamera_Click" />
                     <Button x:Name="btnPosterize" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Posterize" Click="btnPosterize_Click" />
+                    <Button x:Name="btnAutoColoring" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="AutoColoring" Click="btnAutoColoring_Click" />
                 </StackPanel>
             </ScrollViewer>
         </Grid>
         <Grid Margin="321,0,0,0" Background="White"/>
-        <Image x:Name="imageSrc" HorizontalAlignment="Left" Height="559" Margin="342,81,0,0" VerticalAlignment="Top" Width="457" RenderTransformOrigin="0.5,0.5" Source="Assets/lena.PNG"/>
+        <Image x:Name="imageSrc" HorizontalAlignment="Left" Height="559" Margin="342,81,0,0" VerticalAlignment="Top" Width="457" RenderTransformOrigin="0.5,0.5" Source="Assets/lenna.PNG"/>
         <Image x:Name="imageDst" HorizontalAlignment="Left" Height="559" Margin="822,81,0,0" VerticalAlignment="Top" Width="457" RenderTransformOrigin="0.5,0.5"/>
 
     </Grid>

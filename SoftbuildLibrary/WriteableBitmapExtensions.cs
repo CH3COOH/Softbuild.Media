@@ -271,5 +271,21 @@ namespace Softbuild.Media
             // バイト配列からピクセルを作成する
             return WriteableBitmapExtensions.FromArray(bmp.PixelWidth, bmp.PixelHeight, dstPixels);
         }
+
+        /// <summary>
+        /// トイカメラ風処理をしたWriteableBitampオブジェクトを返す
+        /// </summary>
+        /// <param name="bitmap">元になるWriteableBitampオブジェクト</param>
+        /// <returns>WriteableBitampオブジェクト</returns>
+        public static async Task<WriteableBitmap> EffectAutoColoringAsync(this WriteableBitmap bmp)
+        {
+            var effect = default(IEffect);
+            var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///SoftbuildLibrary/Files/default_hosei.cur"));
+            using (var strm = await file.OpenStreamForReadAsync())
+            {
+                effect = new AutoColoringEffect(strm, CurveTypes.Gimp);
+            }
+            return Effect(bmp, effect);
+        }
     }
 }
