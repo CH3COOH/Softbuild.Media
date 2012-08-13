@@ -38,9 +38,9 @@ namespace Softbuild.Storage
         /// Pictures Libraryへファイルを保存する
         /// 既存の同名ファイルが存在している場合はファイルを上書きする
         /// </summary>
-        /// <param name="fileName"></param>
-        /// <param name="stream">エンコード済みの画像ストリーム</param>
-        /// <returns></returns>
+        /// <param name="fileName">拡張子を含むファイル名</param>
+        /// <param name="stream">保存するデータのストリーム</param>
+        /// <returns>ファイル</returns>
         public static async Task<StorageFile> SaveToPicturesLibraryAsync(string fileName, IRandomAccessStream stream)
         {
             var library = KnownFolders.PicturesLibrary;
@@ -54,22 +54,27 @@ namespace Softbuild.Storage
         }
 
         /// <summary>
-        /// 
+        /// 指定されたフォルダーへファイルを保存する
+        /// 既存の同名ファイルが存在している場合はファイルを上書きする
         /// </summary>
-        /// <param name="fileName"></param>
-        /// <param name="stream"></param>
-        /// <returns></returns>
-        public static async Task<StorageFile> SaveToTemporary(string fileName, IRandomAccessStream stream)
+        /// <param name="folder">フォルダー</param>
+        /// <param name="fileName">拡張子を含むファイル名</param>
+        /// <param name="stream">保存するデータのストリーム</param>
+        /// <returns>ファイル</returns>
+        public static async Task<StorageFile> SaveToFolderAsync(IStorageFolder folder, string fileName, IRandomAccessStream stream)
         {
-            // IRandomAccessStreamのストリームを保存する
-            var file = await StorageFile.CreateStreamedFileAsync(fileName,
-                async writeStream =>
-                {
-                    var imageBuffer = new byte[stream.Size];
-                    var ibuffer = imageBuffer.AsBuffer();
-                    await stream.ReadAsync(ibuffer, (uint)stream.Size, InputStreamOptions.None);
-                    await writeStream.WriteAsync(ibuffer);
-                }, null);
+            var file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+            using (var outputStrm = await file.OpenAsync(FileAccessMode.ReadWrite))
+            {
+                // 書き込むファイルからデータを読み込む
+                var imageBuffer = new byte[stream.Size];
+                var ibuffer = imageBuffer.AsBuffer();
+                stream.Seek(0);
+                await stream.ReadAsync(ibuffer, (uint)stream.Size, InputStreamOptions.None);
+
+                // データをファイルに書き出す
+                await outputStrm.WriteAsync(ibuffer);
+            }
             return file;
         }
     }

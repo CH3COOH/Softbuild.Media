@@ -9,7 +9,17 @@
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="321" Height="768">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="110*"/>
+            <RowDefinition Height="659*"/>
+        </Grid.RowDefinitions>
+        <Grid HorizontalAlignment="Left" Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnSaveJpeg" HorizontalAlignment="Stretch" Height="80" Width="100" Margin="0,5" Content="SaveJpeg" Click="btnSaveJpeg_Click" />
+                <Button x:Name="btnSavePng" HorizontalAlignment="Stretch" Height="80" Width="100" Margin="0,5" Content="SavePng" Click="btnSavePng_Click" />
+            </StackPanel>
+        </Grid>
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="321" Grid.Row="2">
             <ScrollViewer>
                 <StackPanel HorizontalAlignment="Stretch">
                     <Button x:Name="btnNegative" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnNegative_Click" Content="Negative" />
@@ -25,9 +35,9 @@
                 </StackPanel>
             </ScrollViewer>
         </Grid>
-        <Grid Margin="321,0,0,0" Background="White"/>
-        <Image x:Name="imageSrc" HorizontalAlignment="Left" Height="559" Margin="342,81,0,0" VerticalAlignment="Top" Width="457" RenderTransformOrigin="0.5,0.5" Source="Assets/lenna.PNG"/>
-        <Image x:Name="imageDst" HorizontalAlignment="Left" Height="559" Margin="822,81,0,0" VerticalAlignment="Top" Width="457" RenderTransformOrigin="0.5,0.5"/>
+        <Grid Margin="321,0,0,0" Background="White" Grid.RowSpan="2"/>
+        <Image x:Name="imageSrc" HorizontalAlignment="Left" Height="559" Margin="342,81,0,0" VerticalAlignment="Top" Width="457" RenderTransformOrigin="0.5,0.5" Source="Assets/lenna.PNG" Grid.RowSpan="2"/>
+        <Image x:Name="imageDst" HorizontalAlignment="Left" Height="559" Margin="822,81,0,0" VerticalAlignment="Top" Width="457" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2"/>
 
     </Grid>
 </Page>

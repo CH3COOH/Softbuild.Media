@@ -44,15 +44,6 @@ namespace EffectSample
             this.InitializeComponent();
         }
 
-        /// <summary>
-        /// Invoked when this page is about to be displayed in a Frame.
-        /// </summary>
-        /// <param name="e">Event data that describes how this page was reached.  The Parameter
-        /// property is typically used to configure the page.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-        }
-
         private async Task<WriteableBitmap> GetTestImageAsync()
         {
             // クラスライブラリ内の画像をリソースを読み出す
@@ -129,6 +120,23 @@ namespace EffectSample
             var bitmap = await GetTestMonochromeImageAsync();
             imageDst.Source = await bitmap.EffectAutoColoringAsync();
         }
-        
+
+        private async void btnSaveJpeg_Click(object sender, RoutedEventArgs e)
+        {
+            var bitmap = imageDst.Source as WriteableBitmap;
+            if (bitmap != null)
+            {
+                await bitmap.SaveAsync(ImageFormat.Jpeg, ImageDirectories.PicturesLibrary, "effect_sample", 320, 280);
+            }
+        }
+
+        private async void btnSavePng_Click(object sender, RoutedEventArgs e)
+        {
+            var bitmap = imageDst.Source as WriteableBitmap;
+            if (bitmap != null)
+            {
+                await bitmap.SaveAsync(ImageFormat.Png, ImageDirectories.InApplicationLocal, "effect_sample");
+            }
+        }
     }
 }
