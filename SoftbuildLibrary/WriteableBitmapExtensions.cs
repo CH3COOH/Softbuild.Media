@@ -74,12 +74,12 @@ namespace Softbuild.Media
         }
 
         /// <summary>
-        /// 
+        /// リサイズする
         /// </summary>
         /// <param name="bmp">WriteableBitmapオブジェクト</param>
         /// <param name="destWidth">変形後の幅</param>
         /// <param name="destHeight">変形後の高さ</param>
-        /// <returns></returns>
+        /// <returns>リサイズ後のWriteableBitmapオブジェクト</returns>
         public static WriteableBitmap Resize(this WriteableBitmap bmp, int destWidth, int destHeight)
         {
             // 加工前のWriteableBitampオブジェクトからピクセルデータ等を取得する

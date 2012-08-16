@@ -101,6 +101,14 @@ namespace Softbuild.Media
             return extension;
         }
 
+        /// <summary>
+        /// 画像比率を維持したまま指定されたサイズに収まる最大画像サイズを計算する
+        /// </summary>
+        /// <param name="srcWidth">元画像の幅</param>
+        /// <param name="srcHeight">元画像の高さ</param>
+        /// <param name="dstWidth">出力画像の幅</param>
+        /// <param name="dstHeight">出力画像の高さ</param>
+        /// <returns>画像比率が維持された状態</returns>
         private static Size GetAspectRatio(double srcWidth, double srcHeight, double dstWidth, double dstHeight)
         {
             // 幅を1として考えた場合、高さから見た幅の比率
