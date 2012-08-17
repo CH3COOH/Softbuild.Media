@@ -110,9 +110,11 @@
     <Compile Include="Effects\ConstrastEffect.cs" />
     <Compile Include="Effects\GiCoCu\Curve.cs" />
     <Compile Include="Effects\GrayscaleEffect.cs" />
+    <Compile Include="Effects\HSV.cs" />
     <Compile Include="Effects\IEffect.cs" />
     <Compile Include="Effects\NegativeEffect.cs" />
     <Compile Include="Effects\PosterizeEffect.cs" />
+    <Compile Include="Effects\RGB.cs" />
     <Compile Include="Effects\SaturationEffect.cs" />
     <Compile Include="Effects\SepiaEffect.cs" />
     <Compile Include="Effects\VignettingEffect.cs" />
