@@ -100,9 +100,9 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Content Include="Files\default_hosei.cur" />
-    <Content Include="Images\bakumatsu.jpg" />
-    <Content Include="Images\vignetting_gradation.png" />
+    <EmbeddedResource Include="Files\default_hosei.cur" />
+    <EmbeddedResource Include="Images\bakumatsu.jpg" />
+    <EmbeddedResource Include="Images\vignetting_gradation.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Effects\AutoColoringEffect.cs" />

@@ -118,7 +118,7 @@ namespace EffectSample
         private async void btnAutoColoring_Click(object sender, RoutedEventArgs e)
         {
             var bitmap = await GetTestMonochromeImageAsync();
-            imageDst.Source = await bitmap.EffectAutoColoringAsync();
+            imageDst.Source = bitmap.EffectAutoColoring();
         }
 
         private async void btnSaveJpeg_Click(object sender, RoutedEventArgs e)

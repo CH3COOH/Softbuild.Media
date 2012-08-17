@@ -23,14 +23,12 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-using System;
-using System.IO;
+using Softbuild.Media.Effects;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Softbuild.Media.Effects;
-using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
-using System.Collections.Generic;
 
 namespace Softbuild.Media
 {
@@ -75,6 +73,17 @@ namespace Softbuild.Media
         }
 
         /// <summary>
+        /// アセンブリ内のリソースのストリームを取得する
+        /// </summary>
+        /// <param name="resourceName">リソース名</param>
+        /// <returns>ストリーム</returns>
+        private static System.IO.Stream GetResourceStream(string resourceName)
+        {
+            var asm = Assembly.Load(new AssemblyName("SoftbuildLibrary"));
+            return asm.GetManifestResourceStream(resourceName);
+        }
+
+        /// <summary>
         /// 白黒反転処理をしたWriteableBitampオブジェクトを返す
         /// </summary>
         /// <param name="bmp">元になるWriteableBitampオブジェクト</param>
@@ -94,16 +103,16 @@ namespace Softbuild.Media
             return Effect(bmp, new GrayscaleEffect());
         }
 
-        /// <summary>
-        /// ぼかし処理をしたWriteableBitampオブジェクトを返す
-        /// </summary>
-        /// <param name="bmp">元になるWriteableBitampオブジェクト</param>
-        /// <param name="range">ぼかしの強さ</param>
-        /// <returns>処理後のWriteableBitampオブジェクト</returns>
-        public static WriteableBitmap EffectBlur(this WriteableBitmap bitmap, int range)
-        {
-            throw new NotImplementedException();
-        }
+        ///// <summary>
+        ///// ぼかし処理をしたWriteableBitampオブジェクトを返す
+        ///// </summary>
+        ///// <param name="bmp">元になるWriteableBitampオブジェクト</param>
+        ///// <param name="range">ぼかしの強さ</param>
+        ///// <returns>処理後のWriteableBitampオブジェクト</returns>
+        //public static WriteableBitmap EffectBlur(this WriteableBitmap bitmap, int range)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         /// <summary>
         /// セピア調処理をしたWriteableBitampオブジェクトを返す
@@ -134,9 +143,12 @@ namespace Softbuild.Media
         public static async Task<WriteableBitmap> EffectBakumatsuAsync(this WriteableBitmap bmp)
         {
             // クラスライブラリ内の画像をリソースを読み出す
-            var maskFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///SoftbuildLibrary/Images/bakumatsu.jpg"));
-            // StorageFileからWriteableBitampを生成する
-            var maskBitamp = await WriteableBitmapExtensions.FromStreamAsync(await maskFile.OpenReadAsync());
+            var maskBitamp = default(WriteableBitmap);
+            using (var strm = GetResourceStream("Softbuild.Images.bakumatsu.jpg"))
+            {
+                // StreamからWriteableBitampを生成する
+                maskBitamp = await WriteableBitmapExtensions.FromStreamAsync(strm);
+            }
             // 元画像とサイズと合わせる
             var resizedBmp = maskBitamp.Resize(bmp.PixelWidth, bmp.PixelHeight);
 
@@ -153,9 +165,12 @@ namespace Softbuild.Media
         public static async Task<WriteableBitmap> EffectVignettingAsync(this WriteableBitmap bmp, double vignetting)
         {
             // クラスライブラリ内の画像をリソースを読み出す
-            var maskFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///SoftbuildLibrary/Images/vignetting_gradation.png"));
-            // StorageFileからWriteableBitampを生成する
-            var maskBitamp = await WriteableBitmapExtensions.FromStreamAsync(await maskFile.OpenReadAsync());
+            var maskBitamp = default(WriteableBitmap);
+            using (var strm = GetResourceStream("Softbuild.Images.vignetting_gradation.png"))
+            {
+                // StreamからWriteableBitampを生成する
+                maskBitamp = await WriteableBitmapExtensions.FromStreamAsync(strm);
+            }
             // 元画像とサイズと合わせる
             var resizedBmp = maskBitamp.Resize(bmp.PixelWidth, bmp.PixelHeight);
 
@@ -210,9 +225,12 @@ namespace Softbuild.Media
             int height = bmp.PixelHeight;
 
             // クラスライブラリ内の画像をリソースを読み出す
-            var maskFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///SoftbuildLibrary/Images/vignetting_gradation.png"));
-            // StorageFileからWriteableBitampを生成する
-            var maskBitamp = await WriteableBitmapExtensions.FromStreamAsync(await maskFile.OpenReadAsync());
+            var maskBitamp = default(WriteableBitmap);
+            using (var strm = GetResourceStream("Softbuild.Images.vignetting_gradation.png"))
+            {
+                // StreamからWriteableBitampを生成する
+                maskBitamp = await WriteableBitmapExtensions.FromStreamAsync(strm);
+            }
             // 元画像とサイズと合わせる
             var resizedBmp = maskBitamp.Resize(width, height);
 
@@ -229,11 +247,10 @@ namespace Softbuild.Media
         /// </summary>
         /// <param name="bitmap">元になるWriteableBitampオブジェクト</param>
         /// <returns>処理後のWriteableBitampオブジェクト</returns>
-        public static async Task<WriteableBitmap> EffectAutoColoringAsync(this WriteableBitmap bmp)
+        public static WriteableBitmap EffectAutoColoring(this WriteableBitmap bmp)
         {
             var effect = default(IEffect);
-            var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///SoftbuildLibrary/Files/default_hosei.cur"));
-            using (var strm = await file.OpenStreamForReadAsync())
+            using (var strm = GetResourceStream("Softbuild.Files.default_hosei.cur"))
             {
                 effect = new AutoColoringEffect(strm, CurveTypes.Gimp);
             }

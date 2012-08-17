@@ -35,12 +35,39 @@ namespace Softbuild.Media
 {
     public static class WriteableBitmapExtensions
     {
+
+        public static async Task<WriteableBitmap> FromStreamAsync(System.IO.Stream stream)
+        {
+            // 
+            stream.Seek(0, SeekOrigin.Begin);
+            var bytes = new byte[stream.Length];
+            stream.Read(bytes, 0, bytes.Length);
+
+            // 
+            var buffe = bytes.AsBuffer();
+            var ras = new InMemoryRandomAccessStream();
+            await ras.WriteAsync(buffe);
+            ras.Seek(0);
+
+            return await FromRandomAccessStreamAsync(ras);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
+        public static async Task<WriteableBitmap> FromStreamAsync(IRandomAccessStream stream)
+        {
+            return await FromRandomAccessStreamAsync(stream);
+        }
+
         /// <summary>
         /// IRandomAccessStreamからWriteableBitmapを生成する
         /// </summary>
         /// <param name="stream">ランダムアクセスストリーム</param>
         /// <returns>WriteableBitmapオブジェクト</returns>
-        public static async Task<WriteableBitmap> FromStreamAsync(IRandomAccessStream stream)
+        public static async Task<WriteableBitmap> FromRandomAccessStreamAsync(IRandomAccessStream stream)
         {
             // ストリームからピクセルデータを読み込む
             var decoder = await BitmapDecoder.CreateAsync(stream);
@@ -52,6 +79,8 @@ namespace Softbuild.Media
             // ピクセルデータからWriteableBitmapオブジェクトを生成する
             return WriteableBitmapExtensions.FromArray((int)decoder.OrientedPixelWidth, (int)decoder.OrientedPixelHeight, pixels);
         }
+
+
 
         /// <summary>
         /// バイト配列からWriteableBitmapを生成する
