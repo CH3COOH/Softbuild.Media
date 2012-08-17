@@ -33,12 +33,12 @@ namespace Softbuild.Media.Effects
     public class SaturationEffect : IEffect
     {
         /// <summary>
-        /// 調整する彩度の倍率
+        /// 彩度の調整値
         /// </summary>
         private double Saturation { get; set; }
 
         /// <summary>
-        /// BakumatsuEffect クラスの新しいインスタンスを初期化します。
+        /// SaturationEffect クラスの新しいインスタンスを初期化します。
         /// </summary>
         /// <param name="saturation">彩度を表現する(0.0～1.0 標準:0.5)</param>
         public SaturationEffect(double saturation)
@@ -68,22 +68,27 @@ namespace Softbuild.Media.Effects
                 double r = source[index + 2];
                 double a = source[index + 3];
 
-                // 単純平均法で輝度を求める
-                double y = (b + g + r) / 3;
+                // 色空間をRGBからHSVへ変換する
+                var hsv = HSV.FromRGB(r, g, b);
 
-                // 輝度に対して指定の比率を掛けてセピア調に変換する
-                b = y + Saturation * (b - y);
-                g = y + Saturation * (g - y);
-                r = y + Saturation * (r - y);
+                // 彩度の調整をおこなう
+                hsv.Saturation *= Saturation;
+
+                // 色空間をHSVからRGBへ変換する
+                var rgb = hsv.ToRGB();
+                int db = rgb.Blue;
+                int dg = rgb.Green;
+                int dr = rgb.Red;
 
                 // 処理後のバッファへピクセル情報を保存する
-                dest[index + 0] = (byte)Math.Min(255, Math.Max(0, b));
-                dest[index + 1] = (byte)Math.Min(255, Math.Max(0, g));
-                dest[index + 2] = (byte)Math.Min(255, Math.Max(0, r));
+                dest[index + 0] = (byte)Math.Min(255, Math.Max(0, db));
+                dest[index + 1] = (byte)Math.Min(255, Math.Max(0, dg));
+                dest[index + 2] = (byte)Math.Min(255, Math.Max(0, dr));
                 dest[index + 3] = source[index + 3];
             }
 
             return dest;
         }
     }
+
 }
