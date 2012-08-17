@@ -90,10 +90,10 @@ namespace Softbuild.Media.Effects
         /// <returns>HSVオブジェクト</returns>
         public static HSV FromRGB(double r, double g, double b)
         {
-            // R、GおよびBが0.0を最小量、1.0を最大値とする0.0から1.0の範囲にあり
-            r = r / 255;
-            g = g / 255;
-            b = b / 255;
+            // R、GおよびBが0.0を最小量、1.0を最大値とする0.0から1.0の範囲にある
+            r /= 255;
+            g /= 255;
+            b /= 255;
 
             var max = Math.Max(Math.Max(r, g), b);
             var min = Math.Min(Math.Min(r, g), b);
@@ -150,7 +150,7 @@ namespace Softbuild.Media.Effects
             // まず、もしSが0.0と等しいなら、最終的な色は無色もしくは灰色である。
             if (Saturation == 0)
             {
-                return new RGB(Value, Value, Value);
+                return new RGB(Value * 255, Value * 255, Value * 255);
             }
 
             double r = 0, g = 0, b = 0;
@@ -169,7 +169,7 @@ namespace Softbuild.Media.Effects
             f = (h / 60) - hi;
             p = v * (1 - s);
             q = v * (1 - f * s);
-            t = v * (1 - (1 - s) * s);
+            t = v * (1 - (1 - f) * s);
 
             if (hi == 0)
             {
