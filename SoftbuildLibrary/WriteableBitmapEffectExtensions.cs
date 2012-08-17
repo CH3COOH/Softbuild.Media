@@ -30,6 +30,7 @@ using System.Threading.Tasks;
 using Softbuild.Media.Effects;
 using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
+using System.Collections.Generic;
 
 namespace Softbuild.Media
 {
@@ -39,18 +40,38 @@ namespace Softbuild.Media
         /// パラメータ無しの画像処理をおこなう
         /// </summary>
         /// <param name="bmp">元になるWriteableBitampオブジェクト</param>
-        /// <param name="effecter">処理させるIEffectオブジェクト</param>
+        /// <param name="effector">処理させるIEffectオブジェクト</param>
         /// <returns>処理後のWriteableBitampオブジェクト</returns>
-        private static WriteableBitmap Effect(WriteableBitmap bmp, IEffect effecter)
+        private static WriteableBitmap Effect(WriteableBitmap bmp, IEffect effector)
         {
             // WriteableBitampのピクセルデータをバイト配列に変換する
             var srcPixels = bmp.PixelBuffer.ToArray();
 
             // パラメータ無しの画像処理をおこなう
-            var dstPixels = effecter.Effect(bmp.PixelWidth, bmp.PixelHeight, srcPixels);
+            var dstPixels = effector.Effect(bmp.PixelWidth, bmp.PixelHeight, srcPixels);
 
             // バイト配列からピクセルを作成する
             return WriteableBitmapExtensions.FromArray(bmp.PixelWidth, bmp.PixelHeight, dstPixels);
+        }
+
+        /// <summary>
+        /// パラメータ無しの画像処理をおこなう
+        /// </summary>
+        /// <param name="bmp">元になるWriteableBitampオブジェクト</param>
+        /// <param name="effectors">処理させるIEffectオブジェクト配列</param>
+        /// <returns>処理後のWriteableBitampオブジェクト</returns>
+        private static WriteableBitmap EffectArray(WriteableBitmap bmp, IEnumerable<IEffect> effectors)
+        {
+            var pixels = bmp.PixelBuffer.ToArray();
+            var width = bmp.PixelWidth;
+            var height = bmp.PixelHeight;
+
+            foreach (var effector in effectors)
+            {
+                pixels = effector.Effect(width, height, pixels);
+            }
+
+            return WriteableBitmapExtensions.FromArray(width, height, pixels);
         }
 
         /// <summary>
@@ -195,15 +216,12 @@ namespace Softbuild.Media
             // 元画像とサイズと合わせる
             var resizedBmp = maskBitamp.Resize(width, height);
 
-            byte[] dstPixels;
+            var effectors = new List<IEffect>();
+            effectors.Add(new ContrastEffect(contrast));
+            effectors.Add(new SaturationEffect(saturation));
+            effectors.Add(new VignettingEffect(resizedBmp, vignetting));
 
-            var srcPixels = bmp.PixelBuffer.ToArray();
-            dstPixels = new ContrastEffect(contrast).Effect(width, height, srcPixels);
-            dstPixels = new SaturationEffect(saturation).Effect(width, height, dstPixels);
-            dstPixels = new VignettingEffect(resizedBmp, vignetting).Effect(width, height, dstPixels);
-
-            // バイト配列からピクセルを作成する
-            return WriteableBitmapExtensions.FromArray(width, height, dstPixels);
+            return EffectArray(bmp, effectors);
         }
 
         /// <summary>
