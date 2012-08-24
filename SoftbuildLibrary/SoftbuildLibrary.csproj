@@ -124,7 +124,6 @@
     <Compile Include="StorageExtensions.cs" />
     <Compile Include="WriteableBitmapEffectExtensions.cs" />
     <Compile Include="WriteableBitmapExtensions.cs" />
-    <Compile Include="WriteableBitmapStorageExtensions.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

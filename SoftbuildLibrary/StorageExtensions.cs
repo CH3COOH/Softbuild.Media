@@ -44,13 +44,7 @@ namespace Softbuild.Storage
         public static async Task<StorageFile> SaveToPicturesLibraryAsync(string fileName, IRandomAccessStream stream)
         {
             var library = KnownFolders.PicturesLibrary;
-            var file = await library.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
-            using (var writeStrm = await file.OpenStreamForWriteAsync())
-            {
-                var readStrm = stream.AsStreamForRead();
-                readStrm.CopyTo(writeStrm);
-            }
-            return file;
+            return await SaveFileAsync(library, fileName, stream);
         }
 
         /// <summary>
@@ -61,7 +55,21 @@ namespace Softbuild.Storage
         /// <param name="fileName">拡張子を含むファイル名</param>
         /// <param name="stream">保存するデータのストリーム</param>
         /// <returns>ファイル</returns>
-        public static async Task<StorageFile> SaveToFolderAsync(IStorageFolder folder, string fileName, IRandomAccessStream stream)
+        [Obsolete("use SaveFileAsync method.")]
+        public static async Task<StorageFile> SaveToFolderAsync(this IStorageFolder folder, string fileName, IRandomAccessStream stream)
+        {
+            return await SaveFileAsync(folder, fileName, stream);
+        }
+
+        /// <summary>
+        /// 指定されたフォルダーへファイルを保存する
+        /// 既存の同名ファイルが存在している場合はファイルを上書きする
+        /// </summary>
+        /// <param name="folder">フォルダー</param>
+        /// <param name="fileName">拡張子を含むファイル名</param>
+        /// <param name="stream">保存するデータのストリーム</param>
+        /// <returns>ファイル</returns>
+        public static async Task<StorageFile> SaveFileAsync(this IStorageFolder folder, string fileName, IRandomAccessStream stream)
         {
             var file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
             using (var outputStrm = await file.OpenAsync(FileAccessMode.ReadWrite))
@@ -76,6 +84,18 @@ namespace Softbuild.Storage
                 await outputStrm.WriteAsync(ibuffer);
             }
             return file;
+        }
+
+        /// <summary>
+        /// 指定されたフォルダーのファイルストリームを取得する
+        /// </summary>
+        /// <param name="folder">フォルダー</param>
+        /// <param name="fileName">拡張子を含むファイル名</param>
+        /// <returns>ストリーム</returns>
+        public static async Task<IRandomAccessStream> LoadFileAsync(this IStorageFolder folder, string fileName)
+        {
+            var file = await folder.GetFileAsync(fileName);
+            return await file.OpenReadAsync();
         }
     }
 }

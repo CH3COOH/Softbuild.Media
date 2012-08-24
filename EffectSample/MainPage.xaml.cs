@@ -136,6 +136,7 @@ namespace EffectSample
             if (bitmap != null)
             {
                 await bitmap.SaveAsync(ImageFormat.Png, ImageDirectories.InApplicationLocal, "effect_sample");
+                var bmp = await WriteableBitmapExtensions.LoadAsync(ImageDirectories.InApplicationLocal, ImageFormat.Png, "effect_sample");
             }
         }
     }

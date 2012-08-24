@@ -23,11 +23,14 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
+using Softbuild.Storage;
 using System;
 using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.Graphics.Imaging;
+using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -79,8 +82,6 @@ namespace Softbuild.Media
             // ピクセルデータからWriteableBitmapオブジェクトを生成する
             return WriteableBitmapExtensions.FromArray((int)decoder.OrientedPixelWidth, (int)decoder.OrientedPixelHeight, pixels);
         }
-
-
 
         /// <summary>
         /// バイト配列からWriteableBitmapを生成する
@@ -147,6 +148,288 @@ namespace Softbuild.Media
 
             // ピクセルデータからWriteableBitmapオブジェクトを生成する
             return WriteableBitmapExtensions.FromArray(destWidth, destHeight, destPixels);
+        }
+
+
+        /// <summary>
+        /// 指定したフォーマット種別からエンコーダーのGUIDを取得する
+        /// </summary>
+        /// <param name="format">画像フォーマット種別</param>
+        /// <returns>エンコーダーのGUID</returns>
+        private static Guid GetEncodertId(ImageFormat format)
+        {
+            var imageFormatId = default(Guid);
+            switch (format)
+            {
+                case ImageFormat.Jpeg:
+                    imageFormatId = BitmapEncoder.JpegEncoderId;
+                    break;
+                case ImageFormat.JpegXR:
+                    imageFormatId = BitmapEncoder.JpegXREncoderId;
+                    break;
+                case ImageFormat.Gif:
+                    imageFormatId = BitmapEncoder.GifEncoderId;
+                    break;
+                case ImageFormat.Bitmap:
+                    imageFormatId = BitmapEncoder.BmpEncoderId;
+                    break;
+                case ImageFormat.Png:
+                    imageFormatId = BitmapEncoder.PngEncoderId;
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+
+            return imageFormatId;
+        }
+
+        /// <summary>
+        /// 指定したフォーマット種別からデコーダーのGUIDを取得する
+        /// </summary>
+        /// <param name="format">画像フォーマット種別</param>
+        /// <returns>デコーダーのGUID</returns>
+        private static Guid GetDecodeId(ImageFormat format)
+        {
+            var imageFormatId = default(Guid);
+            switch (format)
+            {
+                case ImageFormat.Jpeg:
+                    imageFormatId = BitmapDecoder.JpegDecoderId;
+                    break;
+                case ImageFormat.JpegXR:
+                    imageFormatId = BitmapDecoder.JpegXRDecoderId;
+                    break;
+                case ImageFormat.Gif:
+                    imageFormatId = BitmapDecoder.GifDecoderId;
+                    break;
+                case ImageFormat.Bitmap:
+                    imageFormatId = BitmapDecoder.BmpDecoderId;
+                    break;
+                case ImageFormat.Png:
+                    imageFormatId = BitmapDecoder.PngDecoderId;
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+
+            return imageFormatId;
+        }
+
+        /// <summary>
+        /// 指定したフォーマット種別からファイル拡張子を取得する
+        /// </summary>
+        /// <param name="format">画像フォーマット種別</param>
+        /// <returns>ファイル拡張子</returns>
+        private static string GetExtension(ImageFormat format)
+        {
+            var extension = default(string);
+            switch (format)
+            {
+                case ImageFormat.Jpeg:
+                    extension = ".jpg";
+                    break;
+                case ImageFormat.JpegXR:
+                    extension = ".wdp";
+                    break;
+                case ImageFormat.Gif:
+                    extension = ".gif";
+                    break;
+                case ImageFormat.Bitmap:
+                    extension = ".bmp";
+                    break;
+                case ImageFormat.Png:
+                    extension = ".png";
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+
+            return extension;
+        }
+
+        /// <summary>
+        /// 画像比率を維持したまま指定されたサイズに収まる最大画像サイズを計算する
+        /// </summary>
+        /// <param name="srcWidth">元画像の幅</param>
+        /// <param name="srcHeight">元画像の高さ</param>
+        /// <param name="dstWidth">出力画像の幅</param>
+        /// <param name="dstHeight">出力画像の高さ</param>
+        /// <returns>画像比率が維持された状態</returns>
+        private static Size GetAspectRatio(double srcWidth, double srcHeight, double dstWidth, double dstHeight)
+        {
+            if ((srcWidth == dstWidth) && (srcHeight == dstHeight))
+            {
+                return new Size(srcWidth, srcHeight);
+            }
+
+            // 幅を1として考えた場合、高さから見た幅の比率
+            var srcRatio = srcWidth / srcHeight;
+            var dstRatio = dstWidth / dstHeight;
+
+            double width, height;
+            if (srcRatio < dstRatio)
+            {
+                height = Math.Round(dstHeight);
+                width = Math.Round(dstHeight * srcRatio);
+            }
+            else
+            {
+                height = Math.Round(dstWidth * srcRatio);
+                width = Math.Round(dstWidth);
+            }
+            return new Size(width, height);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="directory"></param>
+        /// <returns></returns>
+        private static IStorageFolder GetStorageFolder(ImageDirectories directory)
+        {
+            var folder = default(IStorageFolder);
+            switch (directory)
+            {
+                case ImageDirectories.PicturesLibrary:
+                    folder = KnownFolders.PicturesLibrary;
+                    break;
+                case ImageDirectories.DocumentsLibrary:
+                    folder = KnownFolders.DocumentsLibrary;
+                    break;
+                case ImageDirectories.InApplicationLocal:
+                    folder = ApplicationData.Current.LocalFolder;
+                    break;
+                case ImageDirectories.InApplicationRoaming:
+                    folder = ApplicationData.Current.RoamingFolder;
+                    break;
+                case ImageDirectories.InApplicationTemporary:
+                    folder = ApplicationData.Current.TemporaryFolder;
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+            return folder;
+        }
+
+        /// <summary>
+        /// 画像をJPEGフォーマットでピクチャーライブラリへ保存する
+        /// </summary>
+        /// <param name="bmp">保存するWriteableBitmapオブジェクト</param>
+        /// <param name="format">画像フォーマット種別</param>
+        /// <param name="directory">保存先のディレクトリ種別</param>
+        /// <param name="fileNameWithoutExtension">拡張子を除く保存ファイル名</param>
+        /// <returns>無し</returns>
+        public static async Task SaveAsync(this WriteableBitmap bmp, string fileNameWithoutExtension)
+        {
+            await SaveAsync(bmp, ImageFormat.Jpeg, ImageDirectories.PicturesLibrary, fileNameWithoutExtension, (uint)bmp.PixelWidth, (uint)bmp.PixelHeight, true, 96, 96);
+        }
+
+        /// <summary>
+        /// 画像を指定したフォーマットでストレージへ保存する
+        /// </summary>
+        /// <param name="bmp">保存するWriteableBitmapオブジェクト</param>
+        /// <param name="format">画像フォーマット種別</param>
+        /// <param name="directory">保存先のディレクトリ種別</param>
+        /// <param name="fileNameWithoutExtension">拡張子を除く保存ファイル名</param>
+        /// <returns>無し</returns>
+        public static async Task SaveAsync(this WriteableBitmap bmp, ImageFormat format, ImageDirectories directory,
+            string fileNameWithoutExtension)
+        {
+            await SaveAsync(bmp, format, directory, fileNameWithoutExtension, (uint)bmp.PixelWidth, (uint)bmp.PixelHeight, true, 96, 96);
+        }
+
+        /// <summary>
+        /// 画像を指定したフォーマットでストレージへ保存する
+        /// </summary>
+        /// <param name="bmp">保存するWriteableBitmapオブジェクト</param>
+        /// <param name="format">画像フォーマット種別</param>
+        /// <param name="directory">保存先のディレクトリ種別</param>
+        /// <param name="fileNameWithoutExtension">拡張子を除く保存ファイル名</param>
+        /// <param name="encodeWidth">エンコード後の画像の幅</param>
+        /// <param name="encodeHeight">エンコード後の画像の高さ</param>
+        /// <returns>無し</returns>
+        public static async Task SaveAsync(this WriteableBitmap bmp, ImageFormat format, ImageDirectories directory,
+            string fileNameWithoutExtension, uint encodeWidth, uint encodeHeight)
+        {
+            await SaveAsync(bmp, format, directory, fileNameWithoutExtension, encodeWidth, encodeHeight, true, 96, 96);
+        }
+
+        /// <summary>
+        /// 画像を指定したフォーマットでストレージへ保存する
+        /// </summary>
+        /// <param name="bmp">保存するWriteableBitmapオブジェクト</param>
+        /// <param name="format">画像フォーマット種別</param>
+        /// <param name="directory">保存先のディレクトリ種別</param>
+        /// <param name="fileNameWithoutExtension">拡張子を除く保存ファイル名</param>
+        /// <param name="encodeWidth">エンコード後の画像の幅</param>
+        /// <param name="encodeHeight">エンコード後の画像の高さ</param>
+        /// <param name="isAspectRatio">エンコード後の画像のサイズのアスペクト比を維持する</param>
+        /// <param name="dpiX">保存後の水平方向の解像度(dpi)</param>
+        /// <param name="dpiY">保存後の直立方向の解像度(dpi)</param>
+        /// <returns>無し</returns>
+        public static async Task SaveAsync(this WriteableBitmap bmp, ImageFormat format, ImageDirectories directory,
+            string fileNameWithoutExtension, uint encodeWidth, uint encodeHeight, bool isAspectRatio, double dpiX, double dpiY)
+        {
+            var encodeId = GetEncodertId(format);
+            var extension = GetExtension(format);
+            var fileName = string.Format(@"{0}{1}", fileNameWithoutExtension, extension);
+
+            // 最終的に保存する画角がビットマップと異なる場合リサイズする
+            var width = bmp.PixelWidth;
+            var height = bmp.PixelHeight;
+            var dstSize = new Size(encodeWidth, encodeHeight);
+            if (isAspectRatio)
+            {
+                // 元画像の比率を維持する場合は、比率を求める
+                dstSize = GetAspectRatio(width, height, encodeWidth, encodeHeight);
+            }
+            bmp = bmp.Resize((int)dstSize.Width, (int)dstSize.Height);
+
+            // エンコーダーを生成し、ストリームへエンコード後の画像データを書き込む
+            using (var strm = new InMemoryRandomAccessStream())
+            {
+                var encoder = await BitmapEncoder.CreateAsync(encodeId, strm);
+                encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore,
+                    (uint)dstSize.Width, (uint)dstSize.Height, dpiX, dpiY, bmp.PixelBuffer.ToArray());
+                await encoder.FlushAsync();
+
+                strm.Seek(0);
+
+                // 保存先のストレージフォルダを取得する
+                var folder = GetStorageFolder(directory);
+                await folder.SaveFileAsync(fileName, strm);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="directory"></param>
+        /// <param name="format"></param>
+        /// <param name="fileNameWithoutExtension"></param>
+        /// <returns></returns>
+        public static async Task<WriteableBitmap> LoadAsync(ImageDirectories directory, ImageFormat format, string fileNameWithoutExtension)
+        {
+            var extension = GetExtension(format);
+            var fileName = string.Format(@"{0}{1}", fileNameWithoutExtension, extension);
+            return await LoadAsync(directory, fileName);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="directory"></param>
+        /// <param name="fileNameWithExtension"></param>
+        /// <returns></returns>
+        public static async Task<WriteableBitmap> LoadAsync(ImageDirectories directory, string fileNameWithExtension)
+        {
+            var bmp = default(WriteableBitmap);
+            var folder = GetStorageFolder(directory);
+            using (var strm = await folder.LoadFileAsync(fileNameWithExtension))
+            {
+                bmp = await FromRandomAccessStreamAsync(strm);
+            }
+            return bmp;
         }
     }
 }
