@@ -39,14 +39,18 @@ namespace Softbuild.Media
     public static class WriteableBitmapExtensions
     {
 
+        /// <summary>
+        /// ストリームからWriteableBitmapオブジェクトを生成する
+        /// </summary>
+        /// <param name="stream">Streamストリーム</param>
+        /// <returns>WriteableBitmapオブジェクト</returns>
         public static async Task<WriteableBitmap> FromStreamAsync(System.IO.Stream stream)
         {
-            // 
+            // ストリームからbyte配列に読み込む
             stream.Seek(0, SeekOrigin.Begin);
             var bytes = new byte[stream.Length];
             stream.Read(bytes, 0, bytes.Length);
-
-            // 
+            
             var buffe = bytes.AsBuffer();
             var ras = new InMemoryRandomAccessStream();
             await ras.WriteAsync(buffe);
@@ -56,19 +60,19 @@ namespace Softbuild.Media
         }
 
         /// <summary>
-        /// 
+        /// IRandomAccessStreamストリームからWriteableBitmapオブジェクトを生成する
         /// </summary>
-        /// <param name="stream"></param>
-        /// <returns></returns>
+        /// <param name="stream">IRandomAccessStreamストリーム</param>
+        /// <returns>WriteableBitmapオブジェクト</returns>
         public static async Task<WriteableBitmap> FromStreamAsync(IRandomAccessStream stream)
         {
             return await FromRandomAccessStreamAsync(stream);
         }
 
         /// <summary>
-        /// IRandomAccessStreamからWriteableBitmapを生成する
+        /// IRandomAccessStreamストリームからWriteableBitmapオブジェクトを生成する
         /// </summary>
-        /// <param name="stream">ランダムアクセスストリーム</param>
+        /// <param name="stream">IRandomAccessStreamストリーム</param>
         /// <returns>WriteableBitmapオブジェクト</returns>
         public static async Task<WriteableBitmap> FromRandomAccessStreamAsync(IRandomAccessStream stream)
         {
@@ -315,51 +319,50 @@ namespace Softbuild.Media
         /// 画像をJPEGフォーマットでピクチャーライブラリへ保存する
         /// </summary>
         /// <param name="bmp">保存するWriteableBitmapオブジェクト</param>
-        /// <param name="format">画像フォーマット種別</param>
-        /// <param name="directory">保存先のディレクトリ種別</param>
         /// <param name="fileNameWithoutExtension">拡張子を除く保存ファイル名</param>
         /// <returns>無し</returns>
         public static async Task SaveAsync(this WriteableBitmap bmp, string fileNameWithoutExtension)
         {
-            await SaveAsync(bmp, ImageFormat.Jpeg, ImageDirectories.PicturesLibrary, fileNameWithoutExtension, (uint)bmp.PixelWidth, (uint)bmp.PixelHeight, true, 96, 96);
+            await SaveAsync(bmp, ImageDirectories.PicturesLibrary, ImageFormat.Jpeg, 
+                fileNameWithoutExtension, (uint)bmp.PixelWidth, (uint)bmp.PixelHeight, true, 96, 96);
         }
 
         /// <summary>
         /// 画像を指定したフォーマットでストレージへ保存する
         /// </summary>
         /// <param name="bmp">保存するWriteableBitmapオブジェクト</param>
-        /// <param name="format">画像フォーマット種別</param>
         /// <param name="directory">保存先のディレクトリ種別</param>
+        /// <param name="format">画像フォーマット種別</param>
         /// <param name="fileNameWithoutExtension">拡張子を除く保存ファイル名</param>
         /// <returns>無し</returns>
-        public static async Task SaveAsync(this WriteableBitmap bmp, ImageFormat format, ImageDirectories directory,
+        public static async Task SaveAsync(this WriteableBitmap bmp, ImageDirectories directory, ImageFormat format,
             string fileNameWithoutExtension)
         {
-            await SaveAsync(bmp, format, directory, fileNameWithoutExtension, (uint)bmp.PixelWidth, (uint)bmp.PixelHeight, true, 96, 96);
+            await SaveAsync(bmp, directory, format, fileNameWithoutExtension, (uint)bmp.PixelWidth, (uint)bmp.PixelHeight, true, 96, 96);
         }
 
         /// <summary>
         /// 画像を指定したフォーマットでストレージへ保存する
         /// </summary>
         /// <param name="bmp">保存するWriteableBitmapオブジェクト</param>
-        /// <param name="format">画像フォーマット種別</param>
         /// <param name="directory">保存先のディレクトリ種別</param>
+        /// <param name="format">画像フォーマット種別</param>
         /// <param name="fileNameWithoutExtension">拡張子を除く保存ファイル名</param>
         /// <param name="encodeWidth">エンコード後の画像の幅</param>
         /// <param name="encodeHeight">エンコード後の画像の高さ</param>
         /// <returns>無し</returns>
-        public static async Task SaveAsync(this WriteableBitmap bmp, ImageFormat format, ImageDirectories directory,
+        public static async Task SaveAsync(this WriteableBitmap bmp, ImageDirectories directory, ImageFormat format, 
             string fileNameWithoutExtension, uint encodeWidth, uint encodeHeight)
         {
-            await SaveAsync(bmp, format, directory, fileNameWithoutExtension, encodeWidth, encodeHeight, true, 96, 96);
+            await SaveAsync(bmp, directory, format, fileNameWithoutExtension, encodeWidth, encodeHeight, true, 96, 96);
         }
 
         /// <summary>
         /// 画像を指定したフォーマットでストレージへ保存する
         /// </summary>
         /// <param name="bmp">保存するWriteableBitmapオブジェクト</param>
-        /// <param name="format">画像フォーマット種別</param>
         /// <param name="directory">保存先のディレクトリ種別</param>
+        /// <param name="format">画像フォーマット種別</param>
         /// <param name="fileNameWithoutExtension">拡張子を除く保存ファイル名</param>
         /// <param name="encodeWidth">エンコード後の画像の幅</param>
         /// <param name="encodeHeight">エンコード後の画像の高さ</param>
@@ -367,7 +370,7 @@ namespace Softbuild.Media
         /// <param name="dpiX">保存後の水平方向の解像度(dpi)</param>
         /// <param name="dpiY">保存後の直立方向の解像度(dpi)</param>
         /// <returns>無し</returns>
-        public static async Task SaveAsync(this WriteableBitmap bmp, ImageFormat format, ImageDirectories directory,
+        public static async Task SaveAsync(this WriteableBitmap bmp, ImageDirectories directory, ImageFormat format, 
             string fileNameWithoutExtension, uint encodeWidth, uint encodeHeight, bool isAspectRatio, double dpiX, double dpiY)
         {
             var encodeId = GetEncodertId(format);
@@ -401,13 +404,68 @@ namespace Softbuild.Media
             }
         }
 
+#region Obsolete バージョン2.0にて削除する
+
         /// <summary>
-        /// 
+        /// 画像を指定したフォーマットでストレージへ保存する(互換性のため維持：バージョン2.0にて削除予定)
         /// </summary>
-        /// <param name="directory"></param>
-        /// <param name="format"></param>
-        /// <param name="fileNameWithoutExtension"></param>
-        /// <returns></returns>
+        /// <param name="bmp">保存するWriteableBitmapオブジェクト</param>
+        /// <param name="format">画像フォーマット種別</param>
+        /// <param name="directory">保存先のディレクトリ種別</param>
+        /// <param name="fileNameWithoutExtension">拡張子を除く保存ファイル名</param>
+        /// <returns>無し</returns>
+        [Obsolete("use SaveAsync(ImageDirectories,ImageFormat,string)")]
+        public static async Task SaveAsync(this WriteableBitmap bmp, ImageFormat format, ImageDirectories directory,
+            string fileNameWithoutExtension)
+        {
+            await SaveAsync(bmp, directory, format, fileNameWithoutExtension, (uint)bmp.PixelWidth, (uint)bmp.PixelHeight, true, 96, 96);
+        }
+        /// <summary>
+        /// 画像を指定したフォーマットでストレージへ保存する(互換性のため維持：バージョン2.0にて削除予定)
+        /// </summary>
+        /// <param name="bmp">保存するWriteableBitmapオブジェクト</param>
+        /// <param name="format">画像フォーマット種別</param>
+        /// <param name="directory">保存先のディレクトリ種別</param>
+        /// <param name="fileNameWithoutExtension">拡張子を除く保存ファイル名</param>
+        /// <param name="encodeWidth">エンコード後の画像の幅</param>
+        /// <param name="encodeHeight">エンコード後の画像の高さ</param>
+        /// <returns>無し</returns>
+        [Obsolete("use SaveAsync(ImageDirectories,ImageFormat,string,uint,uint)")]
+        public static async Task SaveAsync(this WriteableBitmap bmp, ImageFormat format, ImageDirectories directory,
+            string fileNameWithoutExtension, uint encodeWidth, uint encodeHeight)
+        {
+            await SaveAsync(bmp, directory, format, fileNameWithoutExtension, encodeWidth, encodeHeight, true, 96, 96);
+        }
+
+        /// <summary>
+        /// 画像を指定したフォーマットでストレージへ保存する(互換性のため維持：バージョン2.0にて削除予定)
+        /// </summary>
+        /// <param name="bmp">保存するWriteableBitmapオブジェクト</param>
+        /// <param name="format">画像フォーマット種別</param>
+        /// <param name="directory">保存先のディレクトリ種別</param>
+        /// <param name="fileNameWithoutExtension">拡張子を除く保存ファイル名</param>
+        /// <param name="encodeWidth">エンコード後の画像の幅</param>
+        /// <param name="encodeHeight">エンコード後の画像の高さ</param>
+        /// <param name="isAspectRatio">エンコード後の画像のサイズのアスペクト比を維持する</param>
+        /// <param name="dpiX">保存後の水平方向の解像度(dpi)</param>
+        /// <param name="dpiY">保存後の直立方向の解像度(dpi)</param>
+        /// <returns>無し</returns>
+        [Obsolete("use SaveAsync(ImageDirectories,ImageFormat,string,uint,uint,bool,double,double)")]
+        public static async Task SaveAsync(this WriteableBitmap bmp, ImageFormat format, ImageDirectories directory,
+            string fileNameWithoutExtension, uint encodeWidth, uint encodeHeight, bool isAspectRatio, double dpiX, double dpiY)
+        {
+            await SaveAsync(bmp, directory, format, fileNameWithoutExtension, encodeWidth, encodeHeight, isAspectRatio, dpiX, dpiY);
+        }
+
+#endregion
+
+        /// <summary>
+        /// 指定したフォーマットでストレージに保存されている画像を読み出しWriteableBitmapオブジェクトを生成する
+        /// </summary>
+        /// <param name="directory">読み取り先のディレクトリ種別</param>
+        /// <param name="format">画像フォーマット種別</param>
+        /// <param name="fileNameWithoutExtension">拡張子を除く画像ファイル名</param>
+        /// <returns>読みだしたWriteableBitmapオブジェクト</returns>
         public static async Task<WriteableBitmap> LoadAsync(ImageDirectories directory, ImageFormat format, string fileNameWithoutExtension)
         {
             var extension = GetExtension(format);
@@ -416,11 +474,11 @@ namespace Softbuild.Media
         }
 
         /// <summary>
-        /// 
+        /// ストレージに保存されている画像を読み出しWriteableBitmapオブジェクトを生成する
         /// </summary>
-        /// <param name="directory"></param>
-        /// <param name="fileNameWithExtension"></param>
-        /// <returns></returns>
+        /// <param name="directory">読み取り先のディレクトリ種別</param>
+        /// <param name="fileNameWithExtension">拡張子を含む画像ファイル名</param>
+        /// <returns>読みだしたWriteableBitmapオブジェクト</returns>
         public static async Task<WriteableBitmap> LoadAsync(ImageDirectories directory, string fileNameWithExtension)
         {
             var bmp = default(WriteableBitmap);

@@ -25,7 +25,7 @@
 
 using System;
 using System.Threading.Tasks;
-using Softbuild.Media;
+using Softbuild.Media; // for Bitmap Effect
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -117,7 +117,9 @@ namespace EffectSample
 
         private async void btnAutoColoring_Click(object sender, RoutedEventArgs e)
         {
+            // グレースケールのテスト画像を取得する
             var bitmap = await GetTestMonochromeImageAsync();
+            // 自動で疑似着色した画像をImageコントロールに表示する
             imageDst.Source = bitmap.EffectAutoColoring();
         }
 
