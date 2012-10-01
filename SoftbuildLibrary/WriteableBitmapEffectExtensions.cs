@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace Softbuild.Media
@@ -256,5 +257,16 @@ namespace Softbuild.Media
             }
             return Effect(bmp, effect);
         }
+
+        /// <summary>
+        /// モザイク処理をしたWriteableBitampオブジェクトを返す
+        /// </summary>
+        /// <param name="bitmap">元になるWriteableBitampオブジェクト</param>
+        /// <returns>処理後のWriteableBitampオブジェクト</returns>
+        public static WriteableBitmap EffectPixalte(this WriteableBitmap bmp, Rect rect, int blockSize)
+        {
+            return Effect(bmp, new PixelateEffect(rect, blockSize));
+        }
+
     }
 }
