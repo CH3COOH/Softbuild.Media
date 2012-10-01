@@ -189,16 +189,20 @@ namespace Softbuild.Media.Effects
                     int MinY = (int)Clamp(y + Block.Y, YLimit, 0);
                     int MaxY = (int)Clamp(y + Block.Y + BlockSize, YLimit, 0);
 
-                    var FillPixel = GetFillPixel(MinX, MaxX, MinY, MaxY, source, width, height);
-
-                    // 軽量版
-                    // var FillPixel = GetFillPixelLight(MinX, MaxX, MinY, MaxY, source, width, height)
-
-                    for (int x2 = MinX; x2 < MaxX; ++x2)
+                    if (MinX != MaxX && MinY != MaxY)
                     {
-                        for (int y2 = MinY; y2 < MaxY; ++y2)
+
+                        var FillPixel = GetFillPixel(MinX, MaxX, MinY, MaxY, source, width, height);
+
+                        // 軽量版
+                        // var FillPixel = GetFillPixelLight(MinX, MaxX, MinY, MaxY, source, width, height)
+
+                        for (int x2 = MinX; x2 < MaxX; ++x2)
                         {
-                            SetPixel(width, height, ref dest, x2, y2, FillPixel);
+                            for (int y2 = MinY; y2 < MaxY; ++y2)
+                            {
+                                SetPixel(width, height, ref dest, x2, y2, FillPixel);
+                            }
                         }
                     }
                 }
