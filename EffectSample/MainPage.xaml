@@ -32,6 +32,7 @@
                     <Button x:Name="btnToycamera" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Toycamera" Click="btnToycamera_Click" />
                     <Button x:Name="btnPosterize" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Posterize" Click="btnPosterize_Click" />
                     <Button x:Name="btnAutoColoring" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="AutoColoring" Click="btnAutoColoring_Click" />
+                    <Button x:Name="btnPixelate" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Pixelate" Click="btnPixelate_Click" />
                 </StackPanel>
             </ScrollViewer>
         </Grid>
