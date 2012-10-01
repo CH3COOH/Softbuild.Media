@@ -192,10 +192,8 @@ namespace Softbuild.Media.Effects
                     if (MinX != MaxX && MinY != MaxY)
                     {
 
-                        var FillPixel = GetFillPixel(MinX, MaxX, MinY, MaxY, source, width, height);
-
                         // 軽量版
-                        // var FillPixel = GetFillPixelLight(MinX, MaxX, MinY, MaxY, source, width, height)
+                        var FillPixel = GetFillPixelLight(MinX, MaxX, MinY, MaxY, source, width, height);
 
                         for (int x2 = MinX; x2 < MaxX; ++x2)
                         {
