@@ -31,6 +31,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Windows.Foundation;
 
 namespace EffectSample
 {
@@ -140,6 +141,14 @@ namespace EffectSample
                 await bitmap.SaveAsync(ImageFormat.Png, ImageDirectories.InApplicationLocal, "effect_sample");
                 var bmp = await WriteableBitmapExtensions.LoadAsync(ImageDirectories.InApplicationLocal, ImageFormat.Png, "effect_sample");
             }
+        }
+
+        private async void btnPixelate_Click(object sender, RoutedEventArgs e)
+        {
+            var rect = new Rect(50, 50, 300, 100);
+            var bitmap = await GetTestImageAsync();
+            imageDst.Source = bitmap.EffectPixalte(rect, 25);
+
         }
     }
 }

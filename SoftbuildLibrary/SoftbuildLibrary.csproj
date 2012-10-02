@@ -113,6 +113,7 @@
     <Compile Include="Effects\HSV.cs" />
     <Compile Include="Effects\IEffect.cs" />
     <Compile Include="Effects\NegativeEffect.cs" />
+    <Compile Include="Effects\PixelateEffect.cs" />
     <Compile Include="Effects\PosterizeEffect.cs" />
     <Compile Include="Effects\RGB.cs" />
     <Compile Include="Effects\SaturationEffect.cs" />
