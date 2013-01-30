@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // アセンブリに関する情報は、次の属性のセットを通して制御されます。
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
-[assembly: AssemblyTitle("EffectSample")]
+[assembly: AssemblyTitle("Softbuild.Data.WinRT")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("EffectSample")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("Kenji Wada")]
+[assembly: AssemblyProduct("Softbuild.Data.WinRT")]
+[assembly: AssemblyCopyright("Copyright © Kenji Wada 2012")]
+[assembly: AssemblyTrademark("Kenji Wada")]
 [assembly: AssemblyCulture("")]
 
 // アセンブリのバージョン情報は、以下の 4 つの値で構成されています:

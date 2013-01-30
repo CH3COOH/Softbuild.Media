@@ -1,7 +1,7 @@
 WriteableBitmapEffector
 =======================
 
-SoftbuildLibrary is WriteableBitmap Effector for Metro Style apps.
+WriteableBitmapEffector is WriteableBitmap Effector for Windows Store apps / Windows Phone apps.
 
 Using SoftbuildLibrary on Metro Style Apps
 ----------------------------------------
@@ -108,6 +108,7 @@ Please add the following to the using directive.
 Change Log
 ----------------------------------------
 
+ *  2013/01/30 - Newe Suport for Windows Phone apps.
  *  2012/08/16 - Release this project with Visual Studio 2012 and Windows 8
  *  2012/08/03 - Release this project with Visual Studio 2012 RC and Windows 8 Release Preview
 

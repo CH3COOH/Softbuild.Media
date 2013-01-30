@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{549E7069-9BF9-4090-B5D2-1FAF87EA435D}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Softbuild.Media</RootNamespace>
+    <AssemblyName>Softbuild.Media</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Phone" />
+    <Reference Include="Microsoft.Xna.Framework" />
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Net" />
+    <Reference Include="mscorlib.extensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Source\Effects\BinarizationEffect.cs">
+      <Link>Effects\BinarizationEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\CartoonizeEffect.cs">
+      <Link>Effects\CartoonizeEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\ConstrastEffect.cs">
+      <Link>Effects\ConstrastEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\Effect.cs">
+      <Link>Effects\Effect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\GrayscaleEffect.cs">
+      <Link>Effects\GrayscaleEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\HSV.cs">
+      <Link>Effects\HSV.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\IEffect.cs">
+      <Link>Effects\IEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\NegativeEffect.cs">
+      <Link>Effects\NegativeEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\PixelateEffect.cs">
+      <Link>Effects\PixelateEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\PosterizeEffect.cs">
+      <Link>Effects\PosterizeEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\RGB.cs">
+      <Link>Effects\RGB.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\SaturationEffect.cs">
+      <Link>Effects\SaturationEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\SepiaEffect.cs">
+      <Link>Effects\SepiaEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\ThinningEffect.cs">
+      <Link>Effects\ThinningEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\StorageExtensions.cs">
+      <Link>StorageExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\WriteableBitmapEffectExtensions.cs">
+      <Link>WriteableBitmapEffectExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\WriteableBitmapExtensions.cs">
+      <Link>WriteableBitmapExtensions.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <ProjectExtensions />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

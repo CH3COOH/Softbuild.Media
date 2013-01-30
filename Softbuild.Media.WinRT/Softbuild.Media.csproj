@@ -4,39 +4,38 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B0D27563-0B37-4E29-8538-EBCA93AAC5BB}</ProjectGuid>
-    <OutputType>AppContainerExe</OutputType>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7B18CB13-7992-47ED-B6B7-34D60FC61362}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EffectSample</RootNamespace>
-    <AssemblyName>EffectSample</AssemblyName>
+    <RootNamespace>Softbuild.Media</RootNamespace>
+    <AssemblyName>Softbuild.Media</AssemblyName>
     <DefaultLanguage>ja-JP</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>EffectSample_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <OutputPath>..\WinRT\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WINDOWS_STORE_APPS;NETFX_CORE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <OutputPath>..\WinRT\Release\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS_STORE_APPS;NETFX_CORE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\ARM\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_STORE_APPS</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>ARM</PlatformTarget>
@@ -80,7 +79,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS_STORE_APPS;NETFX_CORE</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -90,7 +89,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>TRACE;WINDOWS_STORE_APPS;NETFX_CORE</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
@@ -101,47 +100,91 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <ProjectReference Include="..\SoftbuildLibrary\SoftbuildLibrary.csproj">
-      <Project>{f8b1fe3e-0b7c-4d6e-8534-e8efe6681f82}</Project>
-      <Name>SoftbuildLibrary</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="..\Source\Files\default_hosei.cur">
+      <Link>Files\default_hosei.cur</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Source\Images\bakumatsu.jpg">
+      <Link>Images\bakumatsu.jpg</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Source\Images\vignetting_gradation.png">
+      <Link>Images\vignetting_gradation.png</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
+    <Compile Include="..\Source\Effects\AutoColoringEffect.cs">
+      <Link>Effects\AutoColoringEffect.cs</Link>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="..\Source\Effects\BakumatsuEffect.cs">
+      <Link>Effects\BakumatsuEffect.cs</Link>
     </Compile>
+    <Compile Include="..\Source\Effects\BinarizationEffect.cs">
+      <Link>Effects\BinarizationEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\CartoonizeEffect.cs">
+      <Link>Effects\CartoonizeEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\ConstrastEffect.cs">
+      <Link>Effects\ConstrastEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\Effect.cs">
+      <Link>Effects\Effect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\GiCoCu\Curve.cs">
+      <Link>Effects\GiCoCu\Curve.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\GrayscaleEffect.cs">
+      <Link>Effects\GrayscaleEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\HSV.cs">
+      <Link>Effects\HSV.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\IEffect.cs">
+      <Link>Effects\IEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\NegativeEffect.cs">
+      <Link>Effects\NegativeEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\PixelateEffect.cs">
+      <Link>Effects\PixelateEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\PosterizeEffect.cs">
+      <Link>Effects\PosterizeEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\RGB.cs">
+      <Link>Effects\RGB.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\SaturationEffect.cs">
+      <Link>Effects\SaturationEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\SepiaEffect.cs">
+      <Link>Effects\SepiaEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\ThinningEffect.cs">
+      <Link>Effects\ThinningEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\VignettingEffect.cs">
+      <Link>Effects\VignettingEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\ImageDirectories.cs">
+      <Link>ImageDirectories.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\ImageFormat.cs">
+      <Link>ImageFormat.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\StorageExtensions.cs">
+      <Link>StorageExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\WriteableBitmapEffectExtensions.cs">
+      <Link>WriteableBitmapEffectExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\WriteableBitmapExtensions.cs">
+      <Link>WriteableBitmapExtensions.cs</Link>
+    </Compile>
+    <Compile Include="Effects\BrightnessEffect.cs" />
+    <Compile Include="Effects\EmbossmentEffect.cs" />
+    <Compile Include="Effects\GammaEffect.cs" />
+    <Compile Include="Effects\SunLightEffect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest">
-      <SubType>Designer</SubType>
-    </AppxManifest>
-    <None Include="EffectSample_TemporaryKey.pfx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\lenna.PNG" />
-    <Content Include="Assets\lenna_monochrome.jpg" />
-    <Content Include="Assets\Logo.png" />
-    <Content Include="Assets\SmallLogo.png" />
-    <Content Include="Assets\SplashScreen.png" />
-    <Content Include="Assets\StoreLogo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Page Include="Common\StandardStyles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="MainPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

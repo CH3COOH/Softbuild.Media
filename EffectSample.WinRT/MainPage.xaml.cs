@@ -31,7 +31,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using Windows.Foundation;
+using System.Diagnostics;
 
 namespace EffectSample
 {
@@ -45,18 +45,29 @@ namespace EffectSample
             this.InitializeComponent();
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            slider.Value = 50;
+        }
+
         private async Task<WriteableBitmap> GetTestImageAsync()
         {
+            return await GetTestImageAsync("lenna.PNG");
+        }
+
+        private async Task<WriteableBitmap> GetTestImageAsync(string name)
+        {
             // クラスライブラリ内の画像をリソースを読み出す
-            var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/lenna.PNG"));
+            var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/" + name));
             // StorageFileからWriteableBitampを生成する
             return await WriteableBitmapExtensions.FromStreamAsync(await imageFile.OpenReadAsync());
         }
 
         private async Task<WriteableBitmap> GetTestMonochromeImageAsync()
         {
-            var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/lenna_monochrome.jpg"));
-            return await WriteableBitmapExtensions.FromStreamAsync(await imageFile.OpenReadAsync());
+            return await GetTestImageAsync("lenna_monochrome.jpg");
         }
 
         private async void btnNegative_Click(object sender, RoutedEventArgs e)
@@ -126,10 +137,14 @@ namespace EffectSample
 
         private async void btnSaveJpeg_Click(object sender, RoutedEventArgs e)
         {
+            // Imageコントロールに表示されているWriteableBitmapオブジェクトを取り出す
             var bitmap = imageDst.Source as WriteableBitmap;
             if (bitmap != null)
             {
-                await bitmap.SaveAsync(ImageFormat.Jpeg, ImageDirectories.PicturesLibrary, "effect_sample", 320, 280);
+                // ピクチャーライブラリから「effect_sample」という名前のJPEGファイルを
+                // 幅320x高さ280のサイズに収まるサイズで保存します
+                await bitmap.SaveAsync(ImageDirectories.PicturesLibrary, 
+                    ImageFormat.Jpeg, "effect_sample", 320, 280);
             }
         }
 
@@ -138,17 +153,64 @@ namespace EffectSample
             var bitmap = imageDst.Source as WriteableBitmap;
             if (bitmap != null)
             {
-                await bitmap.SaveAsync(ImageFormat.Png, ImageDirectories.InApplicationLocal, "effect_sample");
+                await bitmap.SaveAsync(ImageDirectories.InApplicationLocal, ImageFormat.Png, "effect_sample");
                 var bmp = await WriteableBitmapExtensions.LoadAsync(ImageDirectories.InApplicationLocal, ImageFormat.Png, "effect_sample");
             }
         }
 
         private async void btnPixelate_Click(object sender, RoutedEventArgs e)
         {
-            var rect = new Rect(50, 50, 300, 100);
             var bitmap = await GetTestImageAsync();
-            imageDst.Source = bitmap.EffectPixalte(rect, 25);
+            Debug.WriteLine("st: " + DateTime.Now.ToString("mm:ss ffff"));
+            for (int i = 0; i < 100; i++)
+            {
+                //var hoge = bitmap.EffectPixelate(10, 10, 400, 200, 50);
+            }
+            Debug.WriteLine("en: " + DateTime.Now.ToString("mm:ss ffff"));
+
+            imageDst.Source = bitmap.EffectPixelate(50, 50, 300, 250, 40);
+        }
+
+        private async void btnThinning_Click(object sender, RoutedEventArgs e)
+        {
+            var slide = int.Parse(textValue.Text);
+            var value = slide;
+
+            var bitmap = await GetTestImageAsync();
+            imageDst.Source = bitmap.EffectThinning((int)value, 100);
+        }
+
+        private async void btnBinarization_Click(object sender, RoutedEventArgs e)
+        {
+            var slide = int.Parse(textValue.Text);
+            var value = slide;
+
+            var bitmap = await GetTestImageAsync();
+            imageDst.Source = bitmap.EffectBinarization((int)value);
+        }
+
+        private async void btnComic_Click(object sender, RoutedEventArgs e)
+        {
+            var slide = int.Parse(textValue.Text);
+            var value = slide;
+
+            //var bitmap = await GetTestImageAsync();
+            //var bitmap = await GetTestImageAsync("test1.jpg");
+            //var bitmap = await GetTestImageAsync("test2.jpg");
+            var bitmap = await GetTestImageAsync("test3.jpg");
+            imageDst.Source = bitmap.EffectCartoonize((int)value, 255);
+        }
+
+        private void btnEmbossment_Click(object sender, RoutedEventArgs e)
+        {
 
         }
+
+        private void Slider_ValueChanged_1(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            if (textValue != null)
+                textValue.Text = string.Format("{0}", e.NewValue);
+        }
+
     }
 }

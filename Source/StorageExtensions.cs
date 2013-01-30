@@ -25,15 +25,22 @@
 
 using System;
 using System.IO;
+
+#if WINDOWS_STORE_APPS
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
+#elif WINDOWS_PHONE
+using System.IO.IsolatedStorage;
+using Microsoft.Xna.Framework.Media;
+#endif
 
-namespace Softbuild.Storage
+namespace Softbuild.Data
 {
     public static class StorageExtensions
     {
+#if WINDOWS_STORE_APPS
         /// <summary>
         /// Pictures Libraryへファイルを保存する
         /// 既存の同名ファイルが存在している場合はファイルを上書きする
@@ -97,5 +104,69 @@ namespace Softbuild.Storage
             var file = await folder.GetFileAsync(fileName);
             return await file.OpenReadAsync();
         }
+
+#elif WINDOWS_PHONE
+
+        /// <summary>
+        /// Pictures Libraryへファイルを保存する
+        /// 既存の同名ファイルが存在している場合はファイルを上書きする
+        /// </summary>
+        /// <param name="fileName">拡張子を含むファイル名</param>
+        /// <param name="stream">保存するデータのストリーム</param>
+        public static void SaveToPicturesLibrary(this Stream stream, string fileName)
+        {
+            stream.Position = 0;
+            using (var ml = new MediaLibrary())
+            {
+                ml.SavePicture(fileName, stream);
+            }
+        }
+
+        /// <summary>
+        /// カメラロールへファイルを保存する
+        /// 既存の同名ファイルが存在している場合はファイルを上書きする
+        /// </summary>
+        /// <param name="fileName">拡張子を含むファイル名</param>
+        /// <param name="stream">保存するデータのストリーム</param>
+        public static void SaveToCameraRoll(this Stream stream, string fileName)
+        {
+            stream.Position = 0;
+            using (var ml = new MediaLibrary())
+            {
+                ml.SavePictureToCameraRoll(fileName, stream);
+            }
+        }
+
+        /// <summary>
+        /// 指定されたフォルダーへファイルを保存する
+        /// 既存の同名ファイルが存在している場合はファイルを上書きする
+        /// </summary>
+        /// <param name="fileName">拡張子を含むファイル名</param>
+        /// <param name="stream">保存するデータのストリーム</param>
+        public static void SaveFile(this Stream stream, string fileName)
+        {
+            stream.Position = 0;
+            var bytes = new byte[stream.Length];
+            stream.Read(bytes, 0, bytes.Length);
+
+            var store = IsolatedStorageFile.GetUserStoreForApplication();
+            using (var file = store.CreateFile(fileName))
+            {
+                file.Write(bytes, 0, bytes.Length);
+            }
+        }
+
+        /// <summary>
+        /// 指定されたフォルダーのファイルストリームを取得する
+        /// </summary>
+        /// <param name="fileName">拡張子を含むファイル名</param>
+        /// <returns>ストリーム</returns>
+        public static Stream LoadFile(string fileName)
+        {
+            var store = IsolatedStorageFile.GetUserStoreForApplication();
+            var stream = store.OpenFile(fileName, FileMode.Open);
+            return stream;
+        }
+#endif
     }
 }

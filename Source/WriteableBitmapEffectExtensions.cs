@@ -1,7 +1,7 @@
 ﻿﻿//
 // WriteableBitmapEffectExtensions.cs
 //
-// Copyright (c) 2012 Fuhduki, http://twitter.com/Fuhduki/
+// Copyright (c) 2012 Kenji Wada, http://ch3cooh.jp/
 // 
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files 
@@ -24,12 +24,21 @@
 //
 
 using Softbuild.Media.Effects;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
+
+#if WINDOWS_STORE_APPS
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml.Media.Imaging;
+#elif WINDOWS_PHONE
+using System.IO.IsolatedStorage;
+using System.Windows.Media.Imaging;
+using System.Windows;
+using System.Windows.Media;
+#endif
 
 namespace Softbuild.Media
 {
@@ -41,10 +50,10 @@ namespace Softbuild.Media
         /// <param name="bmp">元になるWriteableBitampオブジェクト</param>
         /// <param name="effector">処理させるIEffectオブジェクト</param>
         /// <returns>処理後のWriteableBitampオブジェクト</returns>
-        private static WriteableBitmap Effect(WriteableBitmap bmp, IEffect effector)
+        private static WriteableBitmap ProcessEffect(WriteableBitmap bmp, IEffect effector)
         {
             // WriteableBitampのピクセルデータをバイト配列に変換する
-            var srcPixels = bmp.PixelBuffer.ToArray();
+            var srcPixels = bmp.GetPixels();
 
             // パラメータ無しの画像処理をおこなう
             var dstPixels = effector.Effect(bmp.PixelWidth, bmp.PixelHeight, srcPixels);
@@ -59,9 +68,9 @@ namespace Softbuild.Media
         /// <param name="bmp">元になるWriteableBitampオブジェクト</param>
         /// <param name="effectors">処理させるIEffectオブジェクト配列</param>
         /// <returns>処理後のWriteableBitampオブジェクト</returns>
-        private static WriteableBitmap EffectArray(WriteableBitmap bmp, IEnumerable<IEffect> effectors)
+        private static WriteableBitmap ProcessEffect(WriteableBitmap bmp, IEnumerable<IEffect> effectors)
         {
-            var pixels = bmp.PixelBuffer.ToArray();
+            var pixels = bmp.GetPixels();
             var width = bmp.PixelWidth;
             var height = bmp.PixelHeight;
 
@@ -80,7 +89,7 @@ namespace Softbuild.Media
         /// <returns>ストリーム</returns>
         private static System.IO.Stream GetResourceStream(string resourceName)
         {
-            var asm = Assembly.Load(new AssemblyName("SoftbuildLibrary"));
+            var asm = Assembly.Load(new AssemblyName("Softbuild.Media"));
             return asm.GetManifestResourceStream(resourceName);
         }
 
@@ -91,7 +100,7 @@ namespace Softbuild.Media
         /// <returns>処理後のWriteableBitampオブジェクト</returns>
         public static WriteableBitmap EffectNegative(this WriteableBitmap bmp)
         {
-            return Effect(bmp, new NegativeEffect());
+            return ProcessEffect(bmp, new NegativeEffect());
         }
 
         /// <summary>
@@ -101,7 +110,7 @@ namespace Softbuild.Media
         /// <returns>処理後のWriteableBitampオブジェクト</returns>
         public static WriteableBitmap EffectGrayscale(this WriteableBitmap bmp)
         {
-            return Effect(bmp, new GrayscaleEffect());
+            return ProcessEffect(bmp, new GrayscaleEffect());
         }
 
         ///// <summary>
@@ -122,7 +131,7 @@ namespace Softbuild.Media
         /// <returns>処理後のWriteableBitampオブジェクト</returns>
         public static WriteableBitmap EffectSepia(this WriteableBitmap bmp)
         {
-            return Effect(bmp, new SepiaEffect());
+            return ProcessEffect(bmp, new SepiaEffect());
         }
 
         /// <summary>
@@ -133,9 +142,30 @@ namespace Softbuild.Media
         /// <returns>処理後のWriteableBitampオブジェクト</returns>
         public static WriteableBitmap EffectContrast(this WriteableBitmap bmp, double contrast)
         {
-            return Effect(bmp, new ContrastEffect(contrast));
+            return ProcessEffect(bmp, new ContrastEffect(contrast));
         }
 
+        /// <summary>
+        /// 漫画風処理をしたWriteableBitampオブジェクトを返す
+        /// </summary>
+        /// <returns>処理後のWriteableBitampオブジェクト</returns>
+        public static WriteableBitmap EffectCartoonize(this WriteableBitmap bmp)
+        {
+            return ProcessEffect(bmp, new CartoonizeEffect());
+        }
+
+        /// <summary>
+        /// 漫画風処理をしたWriteableBitampオブジェクトを返す
+        /// </summary>
+        /// <param name="bmp">元になるWriteableBitampオブジェクト</param>
+        /// <param name="contrast">コントラストの調整量(0.0～1.0 標準:0.5)</param>
+        /// <returns>処理後のWriteableBitampオブジェクト</returns>
+        public static WriteableBitmap EffectCartoonize(this WriteableBitmap bmp, int threshold, byte stroke)
+        {
+            return ProcessEffect(bmp, new CartoonizeEffect(threshold, stroke));
+        }
+
+#if WINDOWS_STORE_APPS
         /// <summary>
         /// 幕末写真風処理をしたWriteableBitampオブジェクトを返す
         /// </summary>
@@ -145,7 +175,7 @@ namespace Softbuild.Media
         {
             // クラスライブラリ内の画像をリソースを読み出す
             var maskBitamp = default(WriteableBitmap);
-            using (var strm = GetResourceStream("Softbuild.Images.bakumatsu.jpg"))
+            using (var strm = GetResourceStream("Softbuild.Media.Images.bakumatsu.jpg"))
             {
                 // StreamからWriteableBitampを生成する
                 maskBitamp = await WriteableBitmapExtensions.FromStreamAsync(strm);
@@ -154,7 +184,7 @@ namespace Softbuild.Media
             var resizedBmp = maskBitamp.Resize(bmp.PixelWidth, bmp.PixelHeight);
 
             // 幕末画像を作成する
-            return Effect(bmp, new BakumatsuEffect(resizedBmp));
+            return ProcessEffect(bmp, new BakumatsuEffect(resizedBmp));
         }
 
         /// <summary>
@@ -167,7 +197,7 @@ namespace Softbuild.Media
         {
             // クラスライブラリ内の画像をリソースを読み出す
             var maskBitamp = default(WriteableBitmap);
-            using (var strm = GetResourceStream("Softbuild.Images.vignetting_gradation.png"))
+            using (var strm = GetResourceStream("Softbuild.Media.Images.vignetting_gradation.png"))
             {
                 // StreamからWriteableBitampを生成する
                 maskBitamp = await WriteableBitmapExtensions.FromStreamAsync(strm);
@@ -176,8 +206,9 @@ namespace Softbuild.Media
             var resizedBmp = maskBitamp.Resize(bmp.PixelWidth, bmp.PixelHeight);
 
             // 口径食による周辺光量の低下風の処理をしたビットマップを作成する
-            return Effect(bmp, new VignettingEffect(resizedBmp, vignetting));
+            return ProcessEffect(bmp, new VignettingEffect(resizedBmp, vignetting));
         }
+#endif
 
         /// <summary>
         /// ポスタライズ処理をしたWriteableBitampオブジェクトを返す
@@ -187,7 +218,7 @@ namespace Softbuild.Media
         /// <returns>処理後のWriteableBitampオブジェクト</returns>
         public static WriteableBitmap EffectPosterize(this WriteableBitmap bmp, byte level)
         {
-            return Effect(bmp, new PosterizeEffect(level));
+            return ProcessEffect(bmp, new PosterizeEffect(level));
         }
 
         /// <summary>
@@ -198,9 +229,30 @@ namespace Softbuild.Media
         /// <returns>処理後のWriteableBitampオブジェクト</returns>
         public static WriteableBitmap EffectSaturation(this WriteableBitmap bmp, double saturation)
         {
-            return Effect(bmp, new SaturationEffect(saturation));
+            return ProcessEffect(bmp, new SaturationEffect(saturation));
         }
 
+#if WINDOWS_STORE_APPS
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bmp"></param>
+        /// <returns></returns>
+        public static WriteableBitmap EffectBinarization(this WriteableBitmap bmp)
+        {
+            return EffectBinarization(bmp, 85);
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bmp"></param>
+        /// <param name="threshold"></param>
+        /// <returns></returns>
+        public static WriteableBitmap EffectBinarization(this WriteableBitmap bmp, int threshold)
+        {
+            return ProcessEffect(bmp, new BinarizationEffect(threshold));
+        }
 
         /// <summary>
         /// トイカメラ風処理をしたWriteableBitampオブジェクトを返す
@@ -211,6 +263,101 @@ namespace Softbuild.Media
         {
             return await EffectToycameraAsync(bmp, 0.8, 0.8, 0.7);
         }
+
+#endif
+
+        #region EffectPixelate
+
+        /// <summary>
+        /// 指定した領域をピクセル化処理をしたWriteableBitampオブジェクトを返す
+        /// </summary>
+        /// <param name="bmp">元になるWriteableBitampオブジェクト</param>
+        /// <param name="blockRects">ピクセル化したい領域</param>
+        /// <returns>処理後のWriteableBitampオブジェクト</returns>
+        public static WriteableBitmap EffectPixelate(this WriteableBitmap bmp, IEnumerable<Rect> blockRects)
+        {
+            var effector = new List<IEffect>();
+            foreach (var rect in blockRects)
+            {
+                var blockSize = rect.Height * 0.6;
+                blockSize = Math.Round(Math.Max(blockSize, 1));
+                effector.Add(new PixelateEffect(rect, (int)blockSize));
+            }
+            return ProcessEffect(bmp, effector);
+        }
+
+        /// <summary>
+        /// 指定した領域をピクセル化処理をしたWriteableBitampオブジェクトを返す
+        /// </summary>
+        /// <param name="bmp">元になるWriteableBitampオブジェクト</param>
+        /// <param name="blockRects">ピクセル化したい領域</param>
+        /// <param name="blockSize">ピクセル化の時のブロックサイズ</param>
+        /// <returns>処理後のWriteableBitampオブジェクト</returns>
+        public static WriteableBitmap EffectPixelate(this WriteableBitmap bmp, IEnumerable<Rect> blockRects, int blockSize)
+        {
+            var effector = new List<IEffect>();
+            foreach (var rect in blockRects)
+            {
+                effector.Add(new PixelateEffect(rect, blockSize));
+            }
+            return ProcessEffect(bmp, effector);
+        }
+
+        /// <summary>
+        /// 指定した領域をピクセル化処理をしたWriteableBitampオブジェクトを返す
+        /// </summary>
+        /// <param name="bmp">元になるWriteableBitampオブジェクト</param>
+        /// <param name="blockRect">ピクセル化したい領域</param>
+        /// <param name="blockSize">ピクセル化の時のブロックサイズ</param>
+        /// <returns>処理後のWriteableBitampオブジェクト</returns>
+        public static WriteableBitmap EffectPixelate(this WriteableBitmap bmp, Rect blockRect, int blockSize)
+        {
+            return EffectPixelate(bmp, new[] { blockRect }, blockSize);
+        }
+
+        /// <summary>
+        /// 指定した領域をピクセル化処理をしたWriteableBitampオブジェクトを返す
+        /// </summary>
+        /// <param name="bmp">元になるWriteableBitampオブジェクト</param>
+        /// <param name="blockX"></param>
+        /// <param name="blockY"></param>
+        /// <param name="blockWidth"></param>
+        /// <param name="blockHeight"></param>
+        /// <param name="blockSize">ピクセル化の時のブロックサイズ</param>
+        /// <returns>処理後のWriteableBitampオブジェクト</returns>
+        public static WriteableBitmap EffectPixelate(this WriteableBitmap bmp, int blockX, int blockY, int blockWidth, int blockHeight, int blockSize)
+        {
+            var blockRect = new Rect(blockX, blockY, blockWidth, blockHeight);
+            return EffectPixelate(bmp, new[] { blockRect }, blockSize);
+        }
+
+        #endregion
+        
+#if WINDOWS_STORE_APPS
+        
+        /// <summary>
+        /// 輪郭の抽出をおこない細線化したWriteableBitampオブジェクトを返す
+        /// </summary>
+        /// <param name="bmp">元になるWriteableBitampオブジェクト</param>
+        /// <param name="threshold">輪郭検出時の閾値</param>
+        /// <param name="stroke">線の濃さ(薄0～255濃)</param>
+        /// <returns>処理後のWriteableBitampオブジェクト</returns>
+        public static WriteableBitmap EffectThinning(this WriteableBitmap bmp, int threshold = 60, byte stroke = 0)
+        {
+            return ProcessEffect(bmp, new ThinningEffect(threshold, stroke));
+        }
+
+        /// <summary>
+        /// トイカメラ風処理をしたWriteableBitampオブジェクトを返す
+        /// </summary>
+        /// <param name="bmp">元になるWriteableBitampオブジェクト</param>
+        /// <returns>処理後のWriteableBitampオブジェクト</returns>
+        public static WriteableBitmap EffectPixelate(this WriteableBitmap bmp, int blockSize)
+        {
+            var rect = new Rect(0, 0, bmp.PixelWidth, bmp.PixelHeight);
+            return EffectPixelate(bmp, rect, blockSize);
+        }
+
 
         /// <summary>
         /// トイカメラ風処理をしたWriteableBitampオブジェクトを返す
@@ -227,7 +374,7 @@ namespace Softbuild.Media
 
             // クラスライブラリ内の画像をリソースを読み出す
             var maskBitamp = default(WriteableBitmap);
-            using (var strm = GetResourceStream("Softbuild.Images.vignetting_gradation.png"))
+            using (var strm = GetResourceStream("Softbuild.Media.Images.vignetting_gradation.png"))
             {
                 // StreamからWriteableBitampを生成する
                 maskBitamp = await WriteableBitmapExtensions.FromStreamAsync(strm);
@@ -240,7 +387,7 @@ namespace Softbuild.Media
             effectors.Add(new SaturationEffect(saturation));
             effectors.Add(new VignettingEffect(resizedBmp, vignetting));
 
-            return EffectArray(bmp, effectors);
+            return ProcessEffect(bmp, effectors);
         }
 
         /// <summary>
@@ -251,22 +398,12 @@ namespace Softbuild.Media
         public static WriteableBitmap EffectAutoColoring(this WriteableBitmap bmp)
         {
             var effect = default(IEffect);
-            using (var strm = GetResourceStream("Softbuild.Files.default_hosei.cur"))
+            using (var strm = GetResourceStream("Softbuild.Media.Files.default_hosei.cur"))
             {
                 effect = new AutoColoringEffect(strm, CurveTypes.Gimp);
             }
-            return Effect(bmp, effect);
-        }
-
-        /// <summary>
-        /// モザイク処理をしたWriteableBitampオブジェクトを返す
-        /// </summary>
-        /// <param name="bitmap">元になるWriteableBitampオブジェクト</param>
-        /// <returns>処理後のWriteableBitampオブジェクト</returns>
-        public static WriteableBitmap EffectPixalte(this WriteableBitmap bmp, Rect rect, int blockSize)
-        {
-            return Effect(bmp, new PixelateEffect(rect, blockSize));
-        }
-
+            return ProcessEffect(bmp, effect);
+        }  
+#endif
     }
 }

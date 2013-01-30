@@ -57,9 +57,10 @@ namespace Softbuild.Media.Effects
                 var r = source[index + 2];
                 var a = source[index + 3];
 
-                // 単純平均法で輝度を求める
-                var sum = (double)(r + g + b);
-                var y = sum / 3;
+                //// 単純平均法で輝度を求める
+                //var sum = (double)(r + g + b);
+                //var y = sum / 3;
+                int y = ((byte)(r * 0.2126 + g * 0.7152 + b * 0.0722));
 
                 // 処理後のピクセルデータを出力用バッファへ格納する
                 dest[index + 0] = (byte)Math.Min(255, Math.Max(0, y));
