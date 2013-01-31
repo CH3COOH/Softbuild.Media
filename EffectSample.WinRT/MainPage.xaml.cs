@@ -61,7 +61,7 @@ namespace EffectSample
         {
             // クラスライブラリ内の画像をリソースを読み出す
             var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/" + name));
-            // StorageFileからWriteableBitampを生成する
+            // StorageFileからWriteableBitmapを生成する
             return await WriteableBitmapExtensions.FromStreamAsync(await imageFile.OpenReadAsync());
         }
 
@@ -194,10 +194,7 @@ namespace EffectSample
             var slide = int.Parse(textValue.Text);
             var value = slide;
 
-            //var bitmap = await GetTestImageAsync();
-            //var bitmap = await GetTestImageAsync("test1.jpg");
-            //var bitmap = await GetTestImageAsync("test2.jpg");
-            var bitmap = await GetTestImageAsync("test3.jpg");
+            var bitmap = await GetTestImageAsync();
             imageDst.Source = bitmap.EffectCartoonize((int)value, 255);
         }
 

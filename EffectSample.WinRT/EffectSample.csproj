@@ -115,15 +115,12 @@
     <None Include="EffectSample_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\test3.jpg" />
-    <Content Include="Assets\test2.jpg" />
     <Content Include="Assets\lenna.PNG" />
     <Content Include="Assets\lenna_monochrome.jpg" />
     <Content Include="Assets\Logo.png" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Assets\test1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Softbuild.Media", "Softbuild.Media.WinRT\Softbuild.Media.csproj", "{7B18CB13-7992-47ED-B6B7-34D60FC61362}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EffectSample", "EffectSample.WinRT\EffectSample.csproj", "{B0D27563-0B37-4E29-8538-EBCA93AAC5BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Softbuild.Media", "Softbuild.Media.WinRT\Softbuild.Media.csproj", "{7B18CB13-7992-47ED-B6B7-34D60FC61362}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

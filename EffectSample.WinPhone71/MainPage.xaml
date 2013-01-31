@@ -13,7 +13,6 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
 
-    <!--LayoutRoot は、すべてのページ コンテンツが配置されるルート グリッドです-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -21,17 +20,14 @@
             <RowDefinition Height="0.447*"/>
         </Grid.RowDefinitions>
 
-        <!--TitlePanel は、アプリケーション名とページ タイトルを格納します-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="マイ アプリケーション" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="ページ名" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="WRITEABLE BITMAP EFFECTOR SAMPLE" Style="{StaticResource PhoneTextNormalStyle}"/>
         </StackPanel>
 
-        <!--ContentPanel - 追加コンテンツをここに入力します-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" Grid.RowSpan="2">
         	<Grid.RowDefinitions>
-        		<RowDefinition Height="306*"/>
-        		<RowDefinition Height="301*"/>
+        		<RowDefinition Height="320*"/>
+        		<RowDefinition Height="300*"/>
         	</Grid.RowDefinitions>
             <Image Name="image1" Stretch="Uniform" />
             <ScrollViewer Grid.Row="1">
@@ -42,21 +38,11 @@
                     <Button Content="Pixelate" Height="72" x:Name="buttonPixelate" Click="buttonPixelate_Click" />
                     <Button Content="Cartoonize" Height="72" x:Name="buttonCartoonize" Click="buttonCartoonize_Click" />
                     <Button Content="Sepia" Height="72" x:Name="buttonSepia" Click="buttonSepia_Click" />
+                    <Button Content="Thinning" Height="72" x:Name="buttonThinning" Click="buttonThinning_Click" />
+                    
                 </StackPanel>
             </ScrollViewer>
         </Grid>
     </Grid>
- 
-    <!--ApplicationBar の使用法を示すサンプル コード-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
 
 </phone:PhoneApplicationPage>

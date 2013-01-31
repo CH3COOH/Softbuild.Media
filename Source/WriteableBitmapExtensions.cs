@@ -267,7 +267,7 @@ namespace Softbuild.Media
         /// <returns>リサイズ後のWriteableBitmapオブジェクト</returns>
         public static WriteableBitmap Resize(this WriteableBitmap bmp, int destWidth, int destHeight)
         {
-            // 加工前のWriteableBitampオブジェクトからピクセルデータ等を取得する
+            // 加工前のWriteableBitmapオブジェクトからピクセルデータ等を取得する
             var srcWidth = bmp.PixelWidth;
             var srcHeight = bmp.PixelHeight;
             if ((srcWidth == destWidth) && (srcHeight == destHeight))

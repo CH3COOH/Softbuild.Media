@@ -72,5 +72,11 @@ namespace EffectSample.WinPhone71
             var bitmap = GetSampleImage();
             image1.Source = bitmap.EffectSaturation(0.8);
         }
+
+        private void buttonThinning_Click(object sender, RoutedEventArgs e)
+        {
+            var bitmap = GetSampleImage();
+            image1.Source = bitmap.EffectThinning(20);
+        }
     }
 }
