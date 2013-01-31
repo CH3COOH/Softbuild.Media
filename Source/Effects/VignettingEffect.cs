@@ -37,7 +37,7 @@ namespace Softbuild.Media.Effects
         /// <summary>
         /// 周辺光を表現するマスク画像
         /// </summary>
-        private WriteableBitmap MaskBitamp { get; set; }
+        private WriteableBitmap MaskBitmap { get; set; }
 
         /// <summary>
         /// マスク画像の不透明度
@@ -47,11 +47,11 @@ namespace Softbuild.Media.Effects
         /// <summary>
         /// VignettingEffect クラスの新しいインスタンスを初期化します。
         /// </summary>
-        /// <param name="maskBitamp">周辺光を表現するマスク画像</param>
+        /// <param name="maskBitmap">周辺光を表現するマスク画像</param>
         /// <param name="opacity">マスク画像の不透明度を表現する(0.0～1.0 不透明:1.0)</param>
-        public VignettingEffect(WriteableBitmap maskBitamp, double opacity)
+        public VignettingEffect(WriteableBitmap maskBitmap, double opacity)
         {
-            MaskBitamp = maskBitamp;
+            MaskBitmap = maskBitmap;
             Opacity = opacity;
         }
 
@@ -65,7 +65,7 @@ namespace Softbuild.Media.Effects
         public byte[] Effect(int width, int height, byte[] source)
         {
             // マスク画像のピクセルデータを取得する
-            var mask = MaskBitamp.PixelBuffer.ToArray();
+            var mask = MaskBitmap.PixelBuffer.ToArray();
 
             int pixelCount = width * height;
             var dest = new byte[source.Length];

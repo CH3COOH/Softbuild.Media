@@ -40,15 +40,15 @@ namespace Softbuild.Media.Effects
         /// <summary>
         /// マスク画像
         /// </summary>
-        private WriteableBitmap MaskBitamp { get; set; }
+        private WriteableBitmap MaskBitmap { get; set; }
 
         /// <summary>
         /// BakumatsuEffect クラスの新しいインスタンスを初期化します。
         /// </summary>
-        /// <param name="maskBitamp">加算合成するビットマップ(古紙のビットマップを推奨)</param>
-        public BakumatsuEffect(WriteableBitmap maskBitamp)
+        /// <param name="maskBitmap">加算合成するビットマップ(古紙のビットマップを推奨)</param>
+        public BakumatsuEffect(WriteableBitmap maskBitmap)
         {
-            MaskBitamp = maskBitamp;
+            MaskBitmap = maskBitmap;
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Softbuild.Media.Effects
         public byte[] Effect(int width, int height, byte[] source)
         {
             // マスク画像のピクセルデータを取得する
-            var mask = MaskBitamp.PixelBuffer.ToArray();
+            var mask = MaskBitmap.PixelBuffer.ToArray();
 
             int pixelCount = width * height;
             var dest = new byte[source.Length];
