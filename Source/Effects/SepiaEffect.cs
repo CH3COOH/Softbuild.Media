@@ -49,10 +49,17 @@ namespace Softbuild.Media.Effects
                 var index = i * 4;
                 
                 // 処理前のピクセルの各ARGB要素を取得する
+#if !IOS
                 var b = source[index + 0];
                 var g = source[index + 1];
                 var r = source[index + 2];
                 var a = source[index + 3];
+#else
+                var r = source[index + 0];
+                var g = source[index + 1];
+                var b = source[index + 2];
+                var a = source[index + 3];
+#endif
 
                 // 単純平均法で輝度を求める
                 var y = (double)(r + g + b) / 3;
@@ -62,11 +69,18 @@ namespace Softbuild.Media.Effects
                 var dg = y * 0.7;
                 var dr = y;
 
+#if !IOS
                 // 処理後のバッファへピクセル情報を保存する
                 dest[index + 0] = (byte)Math.Min(255, Math.Max(0, db));
                 dest[index + 1] = (byte)Math.Min(255, Math.Max(0, dg));
                 dest[index + 2] = (byte)Math.Min(255, Math.Max(0, dr));
                 dest[index + 3] = a;
+#else
+                dest[index + 0] = (byte)Math.Min(255, Math.Max(0, dr));
+                dest[index + 1] = (byte)Math.Min(255, Math.Max(0, dg));
+                dest[index + 2] = (byte)Math.Min(255, Math.Max(0, db));
+                dest[index + 3] = a;
+#endif
             }
 
             return dest;

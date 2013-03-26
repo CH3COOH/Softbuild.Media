@@ -52,21 +52,33 @@ namespace Softbuild.Media.Effects
                 var index = i * 4;
 
                 // 処理前のピクセルから各BGAR要素を取得する
+#if !IOS
                 var b = source[index + 0];
                 var g = source[index + 1];
                 var r = source[index + 2];
                 var a = source[index + 3];
+#else
+                var r = source[index + 0];
+                var g = source[index + 1];
+                var b = source[index + 2];
+                var a = source[index + 3];
+#endif
 
-                //// 単純平均法で輝度を求める
-                //var sum = (double)(r + g + b);
-                //var y = sum / 3;
                 int y = ((byte)(r * 0.2126 + g * 0.7152 + b * 0.0722));
 
+#if !IOS
                 // 処理後のピクセルデータを出力用バッファへ格納する
                 dest[index + 0] = (byte)Math.Min(255, Math.Max(0, y));
                 dest[index + 1] = (byte)Math.Min(255, Math.Max(0, y));
                 dest[index + 2] = (byte)Math.Min(255, Math.Max(0, y));
                 dest[index + 3] = a;
+#else
+                // 処理後のピクセルデータを出力用バッファへ格納する
+                dest[index + 0] = (byte)Math.Min(255, Math.Max(0, y));
+                dest[index + 1] = (byte)Math.Min(255, Math.Max(0, y));
+                dest[index + 2] = (byte)Math.Min(255, Math.Max(0, y));
+                dest[index + 3] = a;
+#endif
             }
 
             return dest;

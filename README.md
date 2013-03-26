@@ -1,9 +1,9 @@
 WriteableBitmapEffector
 =======================
 
-WriteableBitmapEffector is WriteableBitmap Effector for Windows Store apps / Windows Phone apps.
+WriteableBitmapEffector is WriteableBitmap Effector for Windows Store apps / Windows Phone apps / Xamarin.iOS.
 
-Using SoftbuildLibrary on Metro Style Apps
+Using SoftbuildLibrary on Windows Store apps
 ----------------------------------------
 
  *  This source repository includes WriteableBitmap effector so that you can get started easily! More documents you can see on [this article(English)](http://d.hatena.ne.jp/ch3cooh393/20120810/1344588939) or [Japanese article](http://d.hatena.ne.jp/ch3cooh393/20120810/1344587748).
@@ -108,7 +108,8 @@ Please add the following to the using directive.
 Change Log
 ----------------------------------------
 
- *  2013/01/30 - Newe Suport for Windows Phone apps.
+ *  2013/03/26 - New suport for Xamarin.iOS (alpha version).
+ *  2013/01/30 - New suport for Windows Phone apps.
  *  2012/08/16 - Release this project with Visual Studio 2012 and Windows 8
  *  2012/08/03 - Release this project with Visual Studio 2012 RC and Windows 8 Release Preview
 
