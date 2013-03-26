@@ -33,6 +33,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml.Media.Imaging;
+using Softbuild.Media.Effects.GiCoCu;
 #elif WINDOWS_PHONE
 using System.IO.IsolatedStorage;
 using System.Windows.Media.Imaging;

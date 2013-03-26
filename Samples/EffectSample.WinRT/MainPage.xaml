@@ -1,0 +1,49 @@
+﻿<Page
+    x:Class="EffectSample.MainPage"
+    IsTabStop="false"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EffectSample"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="110*"/>
+            <RowDefinition Height="659*"/>
+        </Grid.RowDefinitions>
+        <Grid HorizontalAlignment="Left" Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnSaveJpeg" HorizontalAlignment="Stretch" Height="80" Width="100" Margin="0,5" Content="SaveJpeg" Click="btnSaveJpeg_Click" />
+                <Button x:Name="btnSavePng" HorizontalAlignment="Stretch" Height="80" Width="100" Margin="0,5" Content="SavePng" Click="btnSavePng_Click" />
+            </StackPanel>
+        </Grid>
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="321" Grid.Row="1" Margin="0,77,0,0">
+            <ScrollViewer>
+                <StackPanel HorizontalAlignment="Stretch">
+                    <Button x:Name="btnNegative" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnNegative_Click" Content="Negative" />
+                    <Button x:Name="btnGrayscale" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnGrayscale_Click" Content="Grayscale" />
+                    <Button x:Name="btnSepia" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnSepia_Click" Content="Sepia" />
+                    <Button x:Name="btnContrast" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Contrast" Click="btnContrast_Click" />
+                    <Button x:Name="btnSaturation" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnSaturation_Click" Content="Saturation" />
+                    <Button x:Name="btnThinning" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Thinning" Click="btnThinning_Click" />
+                    <Button x:Name="btnBinarization" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Binarization" Click="btnBinarization_Click" />
+                    <Button x:Name="btnComic" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Comic" Click="btnComic_Click" />
+                    <Button x:Name="btnBakumatsu" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Bakumatsu" Click="btnBakumatsu_Click" />
+                    <Button x:Name="btnVignetting" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Vignetting" Click="btnVignetting_Click" />
+                    <Button x:Name="btnToycamera" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Toycamera" Click="btnToycamera_Click" />
+                    <Button x:Name="btnPosterize" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Posterize" Click="btnPosterize_Click" />
+                    <Button x:Name="btnAutoColoring" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="AutoColoring" Click="btnAutoColoring_Click" />
+                    <Button x:Name="btnPixelate" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Pixelate" Click="btnPixelate_Click" />
+                    <Button x:Name="btnEmbossment" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Embossment" Click="btnEmbossment_Click" />
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        <Grid Margin="321,0,0,0" Background="White" Grid.RowSpan="2"/>
+        <Image x:Name="imageSrc" HorizontalAlignment="Left" Height="559" Margin="342,81,0,0" VerticalAlignment="Top" Width="457" RenderTransformOrigin="0.5,0.5" Source="Assets/lenna.PNG" Grid.RowSpan="2"/>
+        <Image x:Name="imageDst" HorizontalAlignment="Left" Height="559" Margin="822,81,0,0" VerticalAlignment="Top" Width="457" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2"/>
+        <TextBlock x:Name="textValue" HorizontalAlignment="Left" Margin="268,26,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0" VerticalAlignment="Top"/>
+        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="13,9,0,0" Grid.Row="1" VerticalAlignment="Top" Width="239" ValueChanged="Slider_ValueChanged_1" />
+    </Grid>
+</Page>

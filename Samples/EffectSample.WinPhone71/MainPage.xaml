@@ -1,0 +1,48 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="EffectSample.WinPhone71.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="0.553*"/>
+            <RowDefinition Height="0.447*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationTitle" Text="WRITEABLE BITMAP EFFECTOR SAMPLE" Style="{StaticResource PhoneTextNormalStyle}"/>
+        </StackPanel>
+
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" Grid.RowSpan="2">
+        	<Grid.RowDefinitions>
+        		<RowDefinition Height="320*"/>
+        		<RowDefinition Height="300*"/>
+        	</Grid.RowDefinitions>
+            <Image Name="image1" Stretch="Uniform" />
+            <ScrollViewer Grid.Row="1">
+            	<StackPanel Orientation="Vertical">
+                    <Button Content="Saturation" Height="72" x:Name="buttonSaturation" Click="buttonSaturation_Click" />
+                    <Button Content="Grayscale" Height="72" x:Name="buttonGrayscale" Click="buttonGrayscale_Click" />
+                    <Button Content="Posterize" Height="72" x:Name="buttonPosterize" Click="buttonPosterize_Click" />
+                    <Button Content="Pixelate" Height="72" x:Name="buttonPixelate" Click="buttonPixelate_Click" />
+                    <Button Content="Cartoonize" Height="72" x:Name="buttonCartoonize" Click="buttonCartoonize_Click" />
+                    <Button Content="Sepia" Height="72" x:Name="buttonSepia" Click="buttonSepia_Click" />
+                    <Button Content="Thinning" Height="72" x:Name="buttonThinning" Click="buttonThinning_Click" />
+                    
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>

@@ -34,27 +34,6 @@ using Softbuild.Media.Effects.GiCoCu;
 namespace Softbuild.Media.Effects
 {
     /// <summary>
-    /// カーブファイルのフォーマット種別
-    /// </summary>
-    public enum CurveTypes
-    {
-        /// <summary>
-        /// Curve file is unknow format.
-        /// </summary>
-        Auto,
-
-        /// <summary>
-        /// Curve file is Photoshop format.
-        /// </summary>
-        Photoshop,
-
-        /// <summary>
-        /// Curve file is Gimp format.
-        /// </summary>
-        Gimp
-    }
-
-    /// <summary>
     /// 疑似的に着色をおこなうクラス
     /// </summary>
     public class AutoColoringEffect : IEffect
