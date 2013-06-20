@@ -48,14 +48,23 @@ namespace Softbuild.Media.Effects
         /// <param name="contrast">コントラスト値を表現する(0.0～1.0 標準:0.5)</param>
         public ContrastEffect(double contrast)
         {
-            Contrast = contrast * 2;
+            double contrastValue = contrast * 2;
+
+            Contrast = contrastValue;
 
             // コントラストの変換テーブルを作成する
             ContrastTable = new byte[256];
             for (int i = 0; i < 256; i++)
             {
-                double value = ((double)i - 0.5) * Contrast + 0.5;
-                ContrastTable[i] = (byte)Math.Min(255, Math.Max(0, value));
+
+                double value2 = 0.0;
+                value2 = (double)i / 255.0;
+                value2 -= 0.5;
+                value2 *= Contrast;
+                value2 += 0.5;
+                value2 *= 255;
+
+                ContrastTable[i] = (byte)Math.Min(255, Math.Max(0, value2));
             }
         }
 
