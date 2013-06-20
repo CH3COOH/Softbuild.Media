@@ -3,5 +3,11 @@ bin
 obj
 *.suo
 
+Source/Images/Thumbs.db
+
+WinRT/Debug/*
+
+WinRT/Release/*
+
 # mstest test results
 TestResults

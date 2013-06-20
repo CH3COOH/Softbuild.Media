@@ -22,21 +22,22 @@
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="321" Grid.Row="1" Margin="0,77,0,0">
             <ScrollViewer>
                 <StackPanel HorizontalAlignment="Stretch">
-                    <Button x:Name="btnNegative" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnNegative_Click" Content="Negative" />
-                    <Button x:Name="btnGrayscale" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnGrayscale_Click" Content="Grayscale" />
-                    <Button x:Name="btnSepia" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnSepia_Click" Content="Sepia" />
-                    <Button x:Name="btnContrast" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Contrast" Click="btnContrast_Click" />
-                    <Button x:Name="btnSaturation" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnSaturation_Click" Content="Saturation" />
-                    <Button x:Name="btnThinning" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Thinning" Click="btnThinning_Click" />
-                    <Button x:Name="btnBinarization" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Binarization" Click="btnBinarization_Click" />
-                    <Button x:Name="btnComic" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Comic" Click="btnComic_Click" />
-                    <Button x:Name="btnBakumatsu" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Bakumatsu" Click="btnBakumatsu_Click" />
-                    <Button x:Name="btnVignetting" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Vignetting" Click="btnVignetting_Click" />
-                    <Button x:Name="btnToycamera" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Toycamera" Click="btnToycamera_Click" />
-                    <Button x:Name="btnPosterize" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Posterize" Click="btnPosterize_Click" />
-                    <Button x:Name="btnAutoColoring" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="AutoColoring" Click="btnAutoColoring_Click" />
-                    <Button x:Name="btnPixelate" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Pixelate" Click="btnPixelate_Click" />
-                    <Button x:Name="btnEmbossment" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Embossment" Click="btnEmbossment_Click" />
+                    <Button x:Name="btnNegative" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnNegative_Click" Content="Negative" FontSize="36" />
+                    <Button x:Name="btnGrayscale" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnGrayscale_Click" Content="Grayscale" FontSize="36" />
+                    <Button x:Name="btnSepia" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnSepia_Click" Content="Sepia" FontSize="36" />
+                    <Button x:Name="btnBrightness" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Brightness" Click="btnBrightness_Click" FontSize="36" />
+                    <Button x:Name="btnContrast" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Contrast" Click="btnContrast_Click" FontSize="36" />
+                    <Button x:Name="btnSaturation" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Click="btnSaturation_Click" Content="Saturation" FontSize="36" />
+                    <Button x:Name="btnThinning" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Thinning" Click="btnThinning_Click" FontSize="36" />
+                    <Button x:Name="btnBinarization" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Binarization" Click="btnBinarization_Click" FontSize="36" />
+                    <Button x:Name="btnComic" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Comic" Click="btnComic_Click" FontSize="36" />
+                    <Button x:Name="btnBakumatsu" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Bakumatsu" Click="btnBakumatsu_Click" FontSize="36" />
+                    <Button x:Name="btnVignetting" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Vignetting" Click="btnVignetting_Click" FontSize="36" />
+                    <Button x:Name="btnToycamera" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Toycamera" Click="btnToycamera_Click" FontSize="36" />
+                    <Button x:Name="btnPosterize" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Posterize" Click="btnPosterize_Click" FontSize="36" />
+                    <Button x:Name="btnAutoColoring" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="AutoColoring" Click="btnAutoColoring_Click" FontSize="36" />
+                    <Button x:Name="btnPixelate" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Pixelate" Click="btnPixelate_Click" FontSize="36" />
+                    <Button x:Name="btnEmbossment" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Embossment" Click="btnEmbossment_Click" FontSize="36" />
                 </StackPanel>
             </ScrollViewer>
         </Grid>

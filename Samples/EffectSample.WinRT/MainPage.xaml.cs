@@ -109,10 +109,20 @@ namespace EffectSample
             imageDst.Source = bitmap.EffectSepia();
         }
 
+        private async void btnBrightness_Click(object sender, RoutedEventArgs e)
+        {
+            var value = slider.Value / 100.0;
+
+            var bitmap = await GetTestImageAsync();
+            imageDst.Source = bitmap.EffectBrightness(value);
+        }
+
         private async void btnContrast_Click(object sender, RoutedEventArgs e)
         {
+            var value = slider.Value / 100.0;
+
             var bitmap = await GetTestImageAsync();
-            imageDst.Source = bitmap.EffectContrast(1.0);
+            imageDst.Source = bitmap.EffectContrast(value);
         }
 
         private async void btnToycamera_Click(object sender, RoutedEventArgs e)
