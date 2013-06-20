@@ -55,8 +55,8 @@ namespace Softbuild.Media.Effects
             for (int i = 0; i < 256; i++)
             {
                 var baseValue = 256.0 / level;
-                var value = Math.Round((double)i / baseValue);
-                Table[i] = (byte)Math.Min(255, Math.Max(0, value * baseValue));
+                var value = Math.Round((double)i / baseValue) + 1;
+                Table[i] = (byte)Math.Min(255, Math.Max(0, value * baseValue - baseValue / 2));
             }
         }
 
