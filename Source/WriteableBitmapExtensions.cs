@@ -130,11 +130,15 @@ namespace Softbuild.Media
             stream.Read(bytes, 0, bytes.Length);
             
             var buffe = bytes.AsBuffer();
-            var ras = new InMemoryRandomAccessStream();
-            await ras.WriteAsync(buffe);
-            ras.Seek(0);
 
-            return await FromRandomAccessStreamAsync(ras);
+            WriteableBitmap retBitmap = null;
+            using (var ras = new InMemoryRandomAccessStream())
+            {
+                await ras.WriteAsync(buffe);
+                ras.Seek(0);
+                retBitmap = await FromRandomAccessStreamAsync(ras);
+            }
+            return retBitmap;
         }
 
         /// <summary>
