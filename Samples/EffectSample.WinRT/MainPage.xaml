@@ -35,6 +35,7 @@
                     <Button x:Name="btnVignetting" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Vignetting" Click="btnVignetting_Click" FontSize="36" />
                     <Button x:Name="btnToycamera" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Toycamera" Click="btnToycamera_Click" FontSize="36" />
                     <Button x:Name="btnPosterize" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Posterize" Click="btnPosterize_Click" FontSize="36" />
+                    <Button x:Name="btnReducedColors" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Reduced Colors" Click="btnReducedColors_Click" FontSize="36" />
                     <Button x:Name="btnAutoColoring" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="AutoColoring" Click="btnAutoColoring_Click" FontSize="36" />
                     <Button x:Name="btnPixelate" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Pixelate" Click="btnPixelate_Click" FontSize="36" />
                     <Button x:Name="btnEmbossment" HorizontalAlignment="Stretch" Height="80" Width="321" Margin="0,5" Content="Embossment" Click="btnEmbossment_Click" FontSize="36" />

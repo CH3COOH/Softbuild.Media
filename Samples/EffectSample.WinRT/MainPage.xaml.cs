@@ -87,8 +87,10 @@ namespace EffectSample
 
         private async void btnSaturation_Click(object sender, RoutedEventArgs e)
         {
+            var value = slider.Value / 100.0;
+
             var bitmap = await GetTestImageAsync();
-            imageDst.Source = bitmap.EffectSaturation(1.0);
+            imageDst.Source = bitmap.EffectSaturation(value);
         }
 
         private async void btnBakumatsu_Click(object sender, RoutedEventArgs e)
@@ -99,8 +101,10 @@ namespace EffectSample
 
         private async void btnVignetting_Click(object sender, RoutedEventArgs e)
         {
+            var value = slider.Value / 100.0;
+
             var bitmap = await GetTestImageAsync();
-            imageDst.Source = await bitmap.EffectVignettingAsync(1.0);
+            imageDst.Source = await bitmap.EffectVignettingAsync(value);
         }
 
         private async void btnSepia_Click(object sender, RoutedEventArgs e)
@@ -143,6 +147,12 @@ namespace EffectSample
             var bitmap = await GetTestMonochromeImageAsync();
             // 自動で疑似着色した画像をImageコントロールに表示する
             imageDst.Source = bitmap.EffectAutoColoring();
+        }
+
+        private async void btnReducedColors_Click(object sender, RoutedEventArgs e)
+        {
+            var bitmap = await GetTestImageAsync();
+            imageDst.Source = bitmap.EffectReducedColors(4);
         }
 
         private async void btnSaveJpeg_Click(object sender, RoutedEventArgs e)

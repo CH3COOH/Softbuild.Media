@@ -158,6 +158,17 @@ namespace Softbuild.Media
         }
 
         /// <summary>
+        /// 減色処理をしたWriteableBitmapオブジェクトを返す
+        /// </summary>
+        /// <param name="bmp">元になるWriteableBitmapオブジェクト</param>
+        /// <param name="level">各要素の(0～255)</param>
+        /// <returns>処理後のWriteableBitmapオブジェクト</returns>
+        public static WriteableBitmap EffectReducedColors(this WriteableBitmap bmp, byte level)
+        {
+            return ProcessEffect(bmp, new ReducedColorsEffect(level));
+        }
+
+        /// <summary>
         /// 漫画風処理をしたWriteableBitmapオブジェクトを返す
         /// </summary>
         /// <returns>処理後のWriteableBitmapオブジェクト</returns>

@@ -1,5 +1,5 @@
 ﻿﻿//
-// BrightnessEffect.cs
+// ReducedColorsEffect.cs
 //
 // Copyright (c) 2013 Kenji Wada, http://ch3cooh.jp/
 // 
@@ -27,36 +27,46 @@ using System;
 
 namespace Softbuild.Media.Effects
 {
-    public class BrightnessEffect : IEffect
+    /// <summary>
+    /// 減色処理をおこなうクラス
+    /// </summary>
+    public class ReducedColorsEffect : IEffect
     {
-
         /// <summary>
-        /// ブライトネス値をベースに事前に計算した変換テーブル
+        /// 変換テーブル
         /// </summary>
         private byte[] Table { get; set; }
-        
-        /// <summary>
-        /// 調整するブライトネス値
-        /// </summary>
-        private double Brightness { get; set; }
 
         /// <summary>
-        /// BrightnessEffect クラスの新しいインスタンスを初期化します。
+        /// 減色する色数
         /// </summary>
-        /// <param name="brightness">ブライトネス値を表現する(0.0～1.0 標準:0.5)</param>
-        public BrightnessEffect(double brightness)
+        private byte Level { get; set; }
+
+        /// <summary>
+        /// ReducedColorsEffect クラスの新しいインスタンスを初期化します。
+        /// </summary>
+        /// <param name="level">ポスタライズレベルの値(0～255 標準:1)</param>
+        public ReducedColorsEffect(byte level)
         {
-            Brightness = brightness * 2;
+            Level = level;
 
-            // ブライトネス変換テーブルを作成する
+            // 変換テーブルを作成する
             Table = new byte[256];
             for (int i = 0; i < 256; i++)
             {
-                double value = ((double)i - 0.5) * Brightness + 0.5;
-                Table[i] = (byte)Math.Min(255, Math.Max(0, value));
+                var baseValue = 256.0 / level;
+                var value = Math.Round((double)i / baseValue);
+                Table[i] = (byte)Math.Min(255, Math.Max(0, value * baseValue));
             }
         }
 
+        /// <summary>
+        /// 減色処理をおこなう
+        /// </summary>
+        /// <param name="width">ビットマップの幅</param>
+        /// <param name="height">ビットマップの高さ</param>
+        /// <param name="source">処理前のピクセルデータ</param>
+        /// <returns>処理後のピクセルデータ</returns>
         public byte[] Effect(int width, int height, byte[] source)
         {
             int pixelCount = width * height;

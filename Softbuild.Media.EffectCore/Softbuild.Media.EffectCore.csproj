@@ -79,6 +79,9 @@
     <Compile Include="..\Source\Effects\PosterizeEffect.cs">
       <Link>Effects\PosterizeEffect.cs</Link>
     </Compile>
+    <Compile Include="..\Source\Effects\ReducedColorsEffect.cs">
+      <Link>Effects\ReducedColorsEffect.cs</Link>
+    </Compile>
     <Compile Include="..\Source\Effects\RGB.cs">
       <Link>Effects\RGB.cs</Link>
     </Compile>

@@ -35,7 +35,7 @@ namespace Softbuild.Media.Effects
         /// <summary>
         /// コントラスト値をベースに事前に計算した変換テーブル
         /// </summary>
-        private byte[] ContrastTable { get; set; }
+        private byte[] Table { get; set; }
         
         /// <summary>
         /// 調整するコントラスト値
@@ -53,7 +53,7 @@ namespace Softbuild.Media.Effects
             Contrast = contrastValue;
 
             // コントラストの変換テーブルを作成する
-            ContrastTable = new byte[256];
+            Table = new byte[256];
             for (int i = 0; i < 256; i++)
             {
 
@@ -64,7 +64,7 @@ namespace Softbuild.Media.Effects
                 value2 += 0.5;
                 value2 *= 255;
 
-                ContrastTable[i] = (byte)Math.Min(255, Math.Max(0, value2));
+                Table[i] = (byte)Math.Min(255, Math.Max(0, value2));
             }
         }
 
@@ -90,10 +90,10 @@ namespace Softbuild.Media.Effects
                 var r = source[index + 2];
                 var a = source[index + 3];
 
-                // 変換テーブルでコントラストを調整する
-                b = ContrastTable[b];
-                g = ContrastTable[g];
-                r = ContrastTable[r];
+                // 変換テーブルでRGB要素ごとに値を変換する
+                b = Table[b];
+                g = Table[g];
+                r = Table[r];
 
                 // 処理後のバッファへピクセル情報を保存する
                 dest[index + 0] = b;
