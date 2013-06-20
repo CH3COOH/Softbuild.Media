@@ -24,17 +24,67 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Softbuild.Media.Effects
 {
     public class BrightnessEffect : IEffect
     {
-        byte[] IEffect.Effect(int width, int height, byte[] source)
+
+        /// <summary>
+        /// ブライトネス値をベースに事前に計算した変換テーブル
+        /// </summary>
+        private byte[] BrightnessTable { get; set; }
+        
+        /// <summary>
+        /// 調整するブライトネス値
+        /// </summary>
+        private double Brightness { get; set; }
+
+        /// <summary>
+        /// BrightnessEffect クラスの新しいインスタンスを初期化します。
+        /// </summary>
+        /// <param name="brightness">ブライトネス値を表現する(0.0～1.0 標準:0.5)</param>
+        public BrightnessEffect(double brightness)
         {
-            throw new NotImplementedException();
+            Brightness = brightness * 2;
+
+            // ブライトネス変換テーブルを作成する
+            BrightnessTable = new byte[256];
+            for (int i = 0; i < 256; i++)
+            {
+                double value = ((double)i - 0.5) * Brightness + 0.5;
+                BrightnessTable[i] = (byte)Math.Min(255, Math.Max(0, value));
+            }
+        }
+
+        public byte[] Effect(int width, int height, byte[] source)
+        {
+            int pixelCount = width * height;
+            var dest = new byte[source.Length];
+
+            for (int i = 0; i < pixelCount; i++)
+            {
+                var index = i * 4;
+
+                // 処理前のピクセルの各ARGB要素を取得する
+                var b = source[index + 0];
+                var g = source[index + 1];
+                var r = source[index + 2];
+                var a = source[index + 3];
+
+                // 変換テーブルでブライトネス調整する
+                b = BrightnessTable[b];
+                g = BrightnessTable[g];
+                r = BrightnessTable[r];
+
+                // 処理後のバッファへピクセル情報を保存する
+                dest[index + 0] = b;
+                dest[index + 1] = g;
+                dest[index + 2] = r;
+                dest[index + 3] = a;
+            }
+
+            return dest;
         }
     }
 }

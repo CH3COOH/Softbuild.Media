@@ -147,6 +147,17 @@ namespace Softbuild.Media
         }
 
         /// <summary>
+        /// ブライトネスの調整処理をしたWriteableBitmapオブジェクトを返す
+        /// </summary>
+        /// <param name="bmp">元になるWriteableBitmapオブジェクト</param>
+        /// <param name="brightness">ブライトネスの調整量(0.0～1.0 標準:0.5)</param>
+        /// <returns>処理後のWriteableBitmapオブジェクト</returns>
+        public static WriteableBitmap EffectBrightness(this WriteableBitmap bmp, double brightness)
+        {
+            return ProcessEffect(bmp, new BrightnessEffect(brightness));
+        }
+
+        /// <summary>
         /// 漫画風処理をしたWriteableBitmapオブジェクトを返す
         /// </summary>
         /// <returns>処理後のWriteableBitmapオブジェクト</returns>
