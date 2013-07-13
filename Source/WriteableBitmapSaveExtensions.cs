@@ -49,6 +49,7 @@ namespace Softbuild.Media
 {
     public static class WriteableBitmapSaveExtensions
     {
+#if NETFX_CORE
         public static async Task SaveAsync(this WriteableBitmap bmp, StorageFile file)
         {
             await SaveAsync(bmp, ImageFormat.Jpeg, file, (uint)bmp.PixelWidth, (uint)bmp.PixelHeight);
@@ -167,5 +168,12 @@ namespace Softbuild.Media
                 await file.SaveAsync(strm);
             }
         }
+#else
+
+
+
+
+
+#endif
     }
 }

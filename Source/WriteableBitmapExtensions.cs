@@ -56,26 +56,18 @@ namespace Softbuild.Media
         public static Size GetSize(this WriteableBitmap bmp)
         {
             var size = new Size();
-#if WINDOWS_STORE_APPS
             size.Width = bmp.PixelWidth;
             size.Height = bmp.PixelHeight;
-#elif WINDOWS_PHONE
-            throw new Exception();
-#endif
             return size;
         }
 
         public static Rect GetRect(this WriteableBitmap bmp)
         {
             var rect = new Rect();
-#if WINDOWS_STORE_APPS
             rect.X = 0;
             rect.Y = 0;
             rect.Width = bmp.PixelWidth;
             rect.Height = bmp.PixelHeight;
-#elif WINDOWS_PHONE
-            throw new Exception();
-#endif
             return rect;
         }
 

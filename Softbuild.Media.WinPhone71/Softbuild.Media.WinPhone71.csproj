@@ -43,6 +43,9 @@
   <ItemGroup>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Xna.Framework" />
+    <Reference Include="Softbuild.Data">
+      <HintPath>..\packages\Softbuild.Data.1.0.2\lib\sl4-wp71\Softbuild.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -51,8 +54,83 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Source\Effects\AutoColoringEffect.cs">
+      <Link>Effects\AutoColoringEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\BakumatsuEffect.cs">
+      <Link>Effects\BakumatsuEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\BinarizationEffect.cs">
+      <Link>Effects\BinarizationEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\BrightnessEffect.cs">
+      <Link>Effects\BrightnessEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\CartoonizeEffect.cs">
+      <Link>Effects\CartoonizeEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\ConstrastEffect.cs">
+      <Link>Effects\ConstrastEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\EmbossmentEffect.cs">
+      <Link>Effects\EmbossmentEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\GammaEffect.cs">
+      <Link>Effects\GammaEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\GiCoCu\Curve.cs">
+      <Link>Effects\GiCoCu\Curve.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\GiCoCu\CurveTypes.cs">
+      <Link>Effects\GiCoCu\CurveTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\GrayscaleEffect.cs">
+      <Link>Effects\GrayscaleEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\HSV.cs">
+      <Link>Effects\HSV.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\IEffect.cs">
+      <Link>Effects\IEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\NegativeEffect.cs">
+      <Link>Effects\NegativeEffect.cs</Link>
+    </Compile>
     <Compile Include="..\Source\Effects\PixelateEffect.cs">
       <Link>Effects\PixelateEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\PosterizeEffect.cs">
+      <Link>Effects\PosterizeEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\ReducedColorsEffect.cs">
+      <Link>Effects\ReducedColorsEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\RGB.cs">
+      <Link>Effects\RGB.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\SaturationEffect.cs">
+      <Link>Effects\SaturationEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\SepiaEffect.cs">
+      <Link>Effects\SepiaEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\SunLightEffect.cs">
+      <Link>Effects\SunLightEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\ThinningEffect.cs">
+      <Link>Effects\ThinningEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\VignettingEffect.cs">
+      <Link>Effects\VignettingEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\ImageDirectories.cs">
+      <Link>ImageDirectories.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\ImageFileTypes.cs">
+      <Link>ImageFileTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\ImageFormat.cs">
+      <Link>ImageFormat.cs</Link>
     </Compile>
     <Compile Include="..\Source\StorageExtensions.cs">
       <Link>StorageExtensions.cs</Link>
@@ -63,15 +141,17 @@
     <Compile Include="..\Source\WriteableBitmapExtensions.cs">
       <Link>WriteableBitmapExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\Source\WriteableBitmapLoadExtensions.cs">
+      <Link>WriteableBitmapLoadExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\WriteableBitmapSaveExtensions.cs">
+      <Link>WriteableBitmapSaveExtensions.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Softbuild.Media.EffectCore\Softbuild.Media.EffectCore.csproj">
-      <Project>{A0EB98C3-1184-45B1-8A80-4BB008B3495F}</Project>
-      <Name>Softbuild.Media.EffectCore</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions />

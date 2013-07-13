@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Softbuild.Media</id>
+        <version>2.0.0</version>
+        <authors>Kenji Wada</authors>
+        <projectUrl>https://github.com/CH3COOH/Softbuild.Media</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Softbuild.Media is WriteableBitmap effector and utilities for Windows Phone 7.1/Windows store apps projects.</description>
+        <summary>Softbuild.Media is WriteableBitmap effector and utilities for Windows Phone/Windows store apps/Xamarin.iOS projects.
+
+(*)Project name before the change was "WriteableBitmap Effector".</summary>
+        <releaseNotes># v1.0.0
+
+First release.</releaseNotes>
+        <copyright>Kenji Wada</copyright>
+        <language>ja-JP</language>
+        <tags>windowsphone;wp7;phone;winrt;win8;WindowsStoreApps WindowsStore</tags>
+        <dependencies>
+            <dependency id="Softbuild.Data" version="1.0.2" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="..\WinRT\Release\Softbuild.Media.pri" target="content\netcore45\Softbuild.Media.pri" />
+        <file src="..\WinRT\Release\Softbuild.Media.dll" target="lib\netcore45\Softbuild.Media.dll" />
+        <file src="..\WinRT\Release\Softbuild.Media.pdb" target="lib\netcore45\Softbuild.Media.pdb" />
+    </files>
+</package>

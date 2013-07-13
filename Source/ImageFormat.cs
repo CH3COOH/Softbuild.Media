@@ -24,7 +24,9 @@
 //
 
 using System;
+ #if NETFX_CORE
 using Windows.Graphics.Imaging;
+#endif
 
  namespace Softbuild.Media
 {
@@ -93,7 +95,7 @@ using Windows.Graphics.Imaging;
             return extension;
         }
 
-
+#if NETFX_CORE
         /// <summary>
         /// 指定したフォーマット種別からエンコーダーのGUIDを取得する
         /// </summary>
@@ -157,6 +159,6 @@ using Windows.Graphics.Imaging;
 
             return imageFormatId;
         }
-
+#endif
     }
 }

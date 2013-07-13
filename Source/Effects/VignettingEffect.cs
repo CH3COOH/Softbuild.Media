@@ -24,8 +24,12 @@
 //
 
 using System;
+#if NETFX_CORE
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.UI.Xaml.Media.Imaging;
+#else
+using System.Windows.Media.Imaging;
+#endif
 
 namespace Softbuild.Media.Effects
 {
@@ -65,7 +69,7 @@ namespace Softbuild.Media.Effects
         public byte[] Effect(int width, int height, byte[] source)
         {
             // マスク画像のピクセルデータを取得する
-            var mask = MaskBitmap.PixelBuffer.ToArray();
+            var mask = MaskBitmap.GetPixels();
 
             int pixelCount = width * height;
             var dest = new byte[source.Length];

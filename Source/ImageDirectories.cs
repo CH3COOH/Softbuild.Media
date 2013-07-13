@@ -24,7 +24,10 @@
 //
 
 using System;
+ 
+#if NETFX_CORE
 using Windows.Storage;
+#endif
 
 namespace Softbuild.Media
 {
@@ -59,6 +62,7 @@ namespace Softbuild.Media
         InApplicationTemporary
     }
 
+#if NETFX_CORE
     public static class ImageImageDirectoryExtensions
     {
         /// <summary>
@@ -92,4 +96,5 @@ namespace Softbuild.Media
             return folder;
         }
     }
+#endif
 }
