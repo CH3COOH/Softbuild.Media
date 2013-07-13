@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EffectSample.WinPhone71", "Samples\EffectSample.WinPhone71\EffectSample.WinPhone71.csproj", "{19F378FE-0B1A-4660-8F74-2CD68108C027}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EffectSample.WinPhone71", "Softbuild.Media.WinPhone71\EffectSample.WinPhone71\EffectSample.WinPhone71.csproj", "{19F378FE-0B1A-4660-8F74-2CD68108C027}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Softbuild.Media.WinPhone71", "Softbuild.Media.WinPhone71\Softbuild.Media.WinPhone71.csproj", "{549E7069-9BF9-4090-B5D2-1FAF87EA435D}"
 EndProject

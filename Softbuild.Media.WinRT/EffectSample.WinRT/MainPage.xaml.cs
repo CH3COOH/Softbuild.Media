@@ -62,7 +62,7 @@ namespace EffectSample
             // クラスライブラリ内の画像をリソースを読み出す
             var imageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/" + name));
             // StorageFileからWriteableBitmapを生成する
-            return await WriteableBitmapExtensions.FromStreamAsync(await imageFile.OpenReadAsync());
+            return await WriteableBitmapLoadExtensions.FromStreamAsync(await imageFile.OpenReadAsync());
         }
 
         private async Task<WriteableBitmap> GetTestMonochromeImageAsync()
@@ -154,7 +154,7 @@ namespace EffectSample
             if (bitmap != null)
             {
                 await bitmap.SaveAsync(ImageDirectories.InApplicationLocal, ImageFormat.Png, "effect_sample");
-                var bmp = await WriteableBitmapExtensions.LoadAsync(ImageDirectories.InApplicationLocal, ImageFormat.Png, "effect_sample");
+                var bmp = await WriteableBitmapLoadExtensions.LoadAsync(ImageDirectories.InApplicationLocal, ImageFormat.Png, "effect_sample");
             }
         }
 

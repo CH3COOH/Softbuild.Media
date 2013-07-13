@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Reflection;
 
 #if WINDOWS_STORE_APPS
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml.Media.Imaging;
@@ -60,7 +59,7 @@ namespace Softbuild.Media
             var dstPixels = effector.Effect(bmp.PixelWidth, bmp.PixelHeight, srcPixels);
 
             // バイト配列からピクセルを作成する
-            return WriteableBitmapExtensions.FromArray(bmp.PixelWidth, bmp.PixelHeight, dstPixels);
+            return WriteableBitmapLoadExtensions.FromArray(bmp.PixelWidth, bmp.PixelHeight, dstPixels);
         }
 
         /// <summary>
@@ -80,7 +79,7 @@ namespace Softbuild.Media
                 pixels = effector.Effect(width, height, pixels);
             }
 
-            return WriteableBitmapExtensions.FromArray(width, height, pixels);
+            return WriteableBitmapLoadExtensions.FromArray(width, height, pixels);
         }
 
         /// <summary>
@@ -147,6 +146,17 @@ namespace Softbuild.Media
         }
 
         /// <summary>
+        /// ブライトネスの調整処理をしたWriteableBitmapオブジェクトを返す
+        /// </summary>
+        /// <param name="bmp">元になるWriteableBitmapオブジェクト</param>
+        /// <param name="brightness">ブライトネスの調整量(0.0～1.0 標準:0.5)</param>
+        /// <returns>処理後のWriteableBitmapオブジェクト</returns>
+        public static WriteableBitmap EffectBrightness(this WriteableBitmap bmp, double brightness)
+        {
+            return ProcessEffect(bmp, new BrightnessEffect(brightness));
+        }
+
+        /// <summary>
         /// 漫画風処理をしたWriteableBitmapオブジェクトを返す
         /// </summary>
         /// <returns>処理後のWriteableBitmapオブジェクト</returns>
@@ -179,7 +189,7 @@ namespace Softbuild.Media
             using (var strm = GetResourceStream("Softbuild.Media.Images.bakumatsu.jpg"))
             {
                 // StreamからWriteableBitmapを生成する
-                maskBitmap = await WriteableBitmapExtensions.FromStreamAsync(strm);
+                maskBitmap = await WriteableBitmapLoadExtensions.FromStreamAsync(strm);
             }
             // 元画像とサイズと合わせる
             var resizedBmp = maskBitmap.Resize(bmp.PixelWidth, bmp.PixelHeight);
@@ -201,7 +211,7 @@ namespace Softbuild.Media
             using (var strm = GetResourceStream("Softbuild.Media.Images.vignetting_gradation.png"))
             {
                 // StreamからWriteableBitmapを生成する
-                maskBitmap = await WriteableBitmapExtensions.FromStreamAsync(strm);
+                maskBitmap = await WriteableBitmapLoadExtensions.FromStreamAsync(strm);
             }
             // 元画像とサイズと合わせる
             var resizedBmp = maskBitmap.Resize(bmp.PixelWidth, bmp.PixelHeight);
@@ -378,7 +388,7 @@ namespace Softbuild.Media
             using (var strm = GetResourceStream("Softbuild.Media.Images.vignetting_gradation.png"))
             {
                 // StreamからWriteableBitmapを生成する
-                maskBitmap = await WriteableBitmapExtensions.FromStreamAsync(strm);
+                maskBitmap = await WriteableBitmapLoadExtensions.FromStreamAsync(strm);
             }
             // 元画像とサイズと合わせる
             var resizedBmp = maskBitmap.Resize(width, height);

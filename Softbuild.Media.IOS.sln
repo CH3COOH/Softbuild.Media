@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Softbuild.Media.IOS", "Softbuild.Media.IOS\Softbuild.Media.IOS.csproj", "{0ABE7B21-3AAD-49E3-9A86-2E83AD317F72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EffectSample.IOS", "Samples\EffectSample.IOS\EffectSample.IOS.csproj", "{571B22C4-E00E-4ECC-BE46-C2A10A5C0B0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EffectSample.IOS", "Softbuild.Media.IOS\EffectSample.IOS\EffectSample.IOS.csproj", "{571B22C4-E00E-4ECC-BE46-C2A10A5C0B0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

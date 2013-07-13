@@ -23,6 +23,9 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
+using System;
+using Windows.Storage;
+
 namespace Softbuild.Media
 {
     /// <summary>
@@ -54,5 +57,39 @@ namespace Softbuild.Media
         /// アプリケーション テンポラリ
         /// </summary>
         InApplicationTemporary
+    }
+
+    public static class ImageImageDirectoryExtensions
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="directory"></param>
+        /// <returns></returns>
+        public static StorageFolder GetStorageFolder(this ImageDirectories directory)
+        {
+            var folder = default(StorageFolder);
+            switch (directory)
+            {
+                case ImageDirectories.PicturesLibrary:
+                    folder = KnownFolders.PicturesLibrary;
+                    break;
+                case ImageDirectories.DocumentsLibrary:
+                    folder = KnownFolders.DocumentsLibrary;
+                    break;
+                case ImageDirectories.InApplicationLocal:
+                    folder = ApplicationData.Current.LocalFolder;
+                    break;
+                case ImageDirectories.InApplicationRoaming:
+                    folder = ApplicationData.Current.RoamingFolder;
+                    break;
+                case ImageDirectories.InApplicationTemporary:
+                    folder = ApplicationData.Current.TemporaryFolder;
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
+            return folder;
+        }
     }
 }

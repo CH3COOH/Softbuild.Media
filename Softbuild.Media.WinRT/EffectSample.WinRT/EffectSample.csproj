@@ -137,10 +137,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Softbuild.Media.EffectCore\Softbuild.Media.EffectCore.csproj">
-      <Project>{a0eb98c3-1184-45b1-8a80-4bb008b3495f}</Project>
-      <Name>Softbuild.Media.EffectCore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Softbuild.Media.WinRT\Softbuild.Media.WinRT.csproj">
       <Project>{7b18cb13-7992-47ed-b6b7-34d60fc61362}</Project>
       <Name>Softbuild.Media.WinRT</Name>
