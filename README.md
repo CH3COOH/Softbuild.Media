@@ -1,9 +1,12 @@
-WriteableBitmapEffector
+Softbuild.Media
 =======================
 
-WriteableBitmapEffector is WriteableBitmap Effector for Windows Store apps / Windows Phone apps / Xamarin.iOS.
+Softbuild.Media is WriteableBitmap effector and utilities for Windows Phone/Windows store apps/Xamarin.iOS projects.
 
-Using SoftbuildLibrary on Windows Store apps
+(*)Project name before the change was "WriteableBitmap Effector".
+
+
+Using Softbuild.Media on Windows Store apps
 ----------------------------------------
 
  *  This source repository includes WriteableBitmap effector so that you can get started easily! More documents you can see on [this article(English)](http://d.hatena.ne.jp/ch3cooh393/20120810/1344588939) or [Japanese article](http://d.hatena.ne.jp/ch3cooh393/20120810/1344587748).
@@ -108,6 +111,7 @@ Please add the following to the using directive.
 Change Log
 ----------------------------------------
 
+ *  2013/07-14 - Chaged this repository name.
  *  2013/03/26 - New suport for Xamarin.iOS (alpha version).
  *  2013/01/30 - New suport for Windows Phone apps.
  *  2012/08/16 - Release this project with Visual Studio 2012 and Windows 8
