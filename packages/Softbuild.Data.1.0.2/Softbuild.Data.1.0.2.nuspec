@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Softbuild.Data</id>
+    <version>1.0.2</version>
+    <title>Softbuild.Data</title>
+    <authors>Kenji Wada</authors>
+    <owners>Kenji Wada</owners>
+    <projectUrl>https://github.com/CH3COOH/Softbuild.Data</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Manages application files and settings for Windows Phone 7.1 and 8.0/Windows store apps projects.</description>
+    <releaseNotes># v1.0.0
+First release.</releaseNotes>
+    <copyright>Kenji Wada</copyright>
+    <language>ja-JP</language>
+  </metadata>
+</package>
