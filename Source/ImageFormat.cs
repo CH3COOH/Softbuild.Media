@@ -24,11 +24,11 @@
 //
 
 using System;
- #if NETFX_CORE
+#if NETFX_CORE && WINDOWS_STORE_APPS
 using Windows.Graphics.Imaging;
 #endif
 
- namespace Softbuild.Media
+namespace Softbuild.Media
 {
     /// <summary>
     /// 画像のフォーマット種別
@@ -95,7 +95,7 @@ using Windows.Graphics.Imaging;
             return extension;
         }
 
-#if NETFX_CORE
+#if WINDOWS_STORE_APPS
         /// <summary>
         /// 指定したフォーマット種別からエンコーダーのGUIDを取得する
         /// </summary>

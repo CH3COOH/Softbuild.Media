@@ -24,7 +24,7 @@
 //
 
 using System;
-#if NETFX_CORE
+#if WINDOWS_STORE_APPS
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.UI.Xaml.Media.Imaging;
 #else

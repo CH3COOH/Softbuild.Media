@@ -30,12 +30,8 @@ using System.IO;
 
 #if WINDOWS_STORE_APPS
 using Softbuild.Data;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Graphics.Imaging;
-using Windows.Storage;
-using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Xaml.Media.Imaging;
 #elif WINDOWS_PHONE
@@ -44,12 +40,18 @@ using System.Windows.Media.Imaging;
 using System.Windows;
 using System.Windows.Media;
 #endif
+#if NETFX_CORE
+using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.Streams;
+using System.Runtime.InteropServices.WindowsRuntime;
+#endif
 
 namespace Softbuild.Media
 {
     public static class WriteableBitmapSaveExtensions
     {
-#if NETFX_CORE
+#if NETFX_CORE && WINDOWS_STORE_APPS
         public static async Task SaveAsync(this WriteableBitmap bmp, StorageFile file)
         {
             await SaveAsync(bmp, ImageFormat.Jpeg, file, (uint)bmp.PixelWidth, (uint)bmp.PixelHeight);

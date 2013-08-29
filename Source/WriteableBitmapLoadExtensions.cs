@@ -30,12 +30,8 @@ using System.IO;
 
 #if WINDOWS_STORE_APPS
 using Softbuild.Data;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Graphics.Imaging;
-using Windows.Storage;
-using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Xaml.Media.Imaging;
 #elif WINDOWS_PHONE
@@ -43,6 +39,12 @@ using System.IO.IsolatedStorage;
 using System.Windows.Media.Imaging;
 using System.Windows;
 using System.Windows.Media;
+#endif
+#if NETFX_CORE
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.Streams;
 #endif
 
 namespace Softbuild.Media
@@ -110,7 +112,7 @@ namespace Softbuild.Media
             return bitmap;
         }
 
-#if WINDOWS_STORE_APPS
+#if NETFX_CORE
 
         /// <summary>
         /// ストリームからWriteableBitmapオブジェクトを生成する
@@ -119,6 +121,8 @@ namespace Softbuild.Media
         /// <returns>WriteableBitmapオブジェクト</returns>
         public static async Task<WriteableBitmap> FromStreamAsync(System.IO.Stream stream, ImageFileTypes type = ImageFileTypes.Normal)
         {
+            WriteableBitmap retBitmap = null;
+#if WINDOWS_STORE_APPS
             // ストリームからbyte配列に読み込む
             stream.Seek(0, SeekOrigin.Begin);
             var bytes = new byte[stream.Length];
@@ -126,15 +130,40 @@ namespace Softbuild.Media
 
             var buffe = bytes.AsBuffer();
 
-            WriteableBitmap retBitmap = null;
             using (var ras = new InMemoryRandomAccessStream())
             {
                 await ras.WriteAsync(buffe);
                 ras.Seek(0);
                 retBitmap = await FromRandomAccessStreamAsync(ras, type);
             }
+#else
+            var bitmapSource = new BitmapImage();
+            bitmapSource.SetSource(stream);
+
+            retBitmap = new WriteableBitmap(bitmapSource);
+#endif
             return retBitmap;
         }
+
+        public static async Task<WriteableBitmap> FromFileAsync(StorageFile file, ImageFileTypes type = ImageFileTypes.Normal)
+        {
+            var bitmap = default(WriteableBitmap);
+            using (var strm = await file.OpenStreamForReadAsync())
+            {
+                bitmap = await WriteableBitmapLoadExtensions.FromStreamAsync(strm, type);
+            }
+            return bitmap;
+        }
+
+        public static async Task<WriteableBitmap> FromUriAsync(Uri uri)
+        {
+            var file = await StorageFile.GetFileFromApplicationUriAsync(uri);
+            return await FromFileAsync(file);
+        }
+#endif
+
+#if WINDOWS_STORE_APPS
+
 
         /// <summary>
         /// IRandomAccessStreamストリームからWriteableBitmapオブジェクトを生成する
@@ -162,22 +191,6 @@ namespace Softbuild.Media
 
             // ピクセルデータからWriteableBitmapオブジェクトを生成する
             return WriteableBitmapLoadExtensions.FromArray((int)decoder.OrientedPixelWidth, (int)decoder.OrientedPixelHeight, pixels, type);
-        }
-
-        public static async Task<WriteableBitmap> FromFileAsync(StorageFile file, ImageFileTypes type = ImageFileTypes.Normal)
-        {
-            var bitmap = default(WriteableBitmap);
-            using (var strm = await file.OpenStreamForReadAsync())
-            {
-                bitmap = await WriteableBitmapLoadExtensions.FromStreamAsync(strm, type);
-            }
-            return bitmap;
-        }
-
-        public static async Task<WriteableBitmap> FromUriAsync(Uri uri)
-        {
-            var file = await StorageFile.GetFileFromApplicationUriAsync(uri);
-            return await FromFileAsync(file);
         }
 
 

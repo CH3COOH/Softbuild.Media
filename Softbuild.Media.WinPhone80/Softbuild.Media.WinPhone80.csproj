@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E295B4FA-A5E3-45E9-AA34-8A3100A07946}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Softbuild.Media</RootNamespace>
+    <AssemblyName>Softbuild.Media</AssemblyName>
+    <TargetFrameworkIdentifier>WindowsPhone</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\x86\Debug</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE;NETFX_CORE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\x86\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|ARM' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\ARM\Debug</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE;NETFX_CORE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|ARM' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\ARM\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Source\Effects\AutoColoringEffect.cs">
+      <Link>Effects\AutoColoringEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\BakumatsuEffect.cs">
+      <Link>Effects\BakumatsuEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\BinarizationEffect.cs">
+      <Link>Effects\BinarizationEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\BrightnessEffect.cs">
+      <Link>Effects\BrightnessEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\CartoonizeEffect.cs">
+      <Link>Effects\CartoonizeEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\ConstrastEffect.cs">
+      <Link>Effects\ConstrastEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\EmbossmentEffect.cs">
+      <Link>Effects\EmbossmentEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\GammaEffect.cs">
+      <Link>Effects\GammaEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\GiCoCu\Curve.cs">
+      <Link>Effects\GiCoCu\Curve.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\GiCoCu\CurveTypes.cs">
+      <Link>Effects\GiCoCu\CurveTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\GrayscaleEffect.cs">
+      <Link>Effects\GrayscaleEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\HSV.cs">
+      <Link>Effects\HSV.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\IEffect.cs">
+      <Link>Effects\IEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\NegativeEffect.cs">
+      <Link>Effects\NegativeEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\PixelateEffect.cs">
+      <Link>Effects\PixelateEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\PosterizeEffect.cs">
+      <Link>Effects\PosterizeEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\ReducedColorsEffect.cs">
+      <Link>Effects\ReducedColorsEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\RGB.cs">
+      <Link>Effects\RGB.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\SaturationEffect.cs">
+      <Link>Effects\SaturationEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\SepiaEffect.cs">
+      <Link>Effects\SepiaEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\SunLightEffect.cs">
+      <Link>Effects\SunLightEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\ThinningEffect.cs">
+      <Link>Effects\ThinningEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\Effects\VignettingEffect.cs">
+      <Link>Effects\VignettingEffect.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\ImageDirectories.cs">
+      <Link>ImageDirectories.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\ImageFileTypes.cs">
+      <Link>ImageFileTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\ImageFormat.cs">
+      <Link>ImageFormat.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\StorageExtensions.cs">
+      <Link>StorageExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\WriteableBitmapEffectExtensions.cs">
+      <Link>WriteableBitmapEffectExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\WriteableBitmapExtensions.cs">
+      <Link>WriteableBitmapExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\WriteableBitmapLoadExtensions.cs">
+      <Link>WriteableBitmapLoadExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Source\WriteableBitmapSaveExtensions.cs">
+      <Link>WriteableBitmapSaveExtensions.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Files\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Softbuild.Data.WinPhone80">
+      <HintPath>..\packages\Softbuild.Data.1.0.2\lib\wp8\Softbuild.Data.WinPhone80.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
+  <ProjectExtensions />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
